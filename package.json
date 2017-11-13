@@ -1,0 +1,24 @@
+{
+  "name": "serious-amnesty",
+  "version": "1.0.0",
+  "description": "Server for Amnesty Internation project with Serious Business",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "websocket": "node ws_server.js",
+    "build": "./node_modules/.bin/browserify ./public/main.js -o ./public/bundle.js",
+    "watch": "./node_modules/.bin/watchify ./public/main.js -o ./public/bundle.js"
+  },
+  "author": "Murilo Polese <murilopolese@gmail.com>",
+  "license": "LGPL-3.0",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "nodejs-websocket": "^1.7.1"
+  },
+  "devDependencies": {
+    "browserify": "^14.5.0",
+    "choo": "^6.5.1",
+    "watchify": "^3.9.0"
+  }
+}
