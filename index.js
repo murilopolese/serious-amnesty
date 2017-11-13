@@ -5,13 +5,18 @@ let path = require('path')
     express = require('express')
     bodyParser = require('body-parser'),
     app = express(),
-    websocket = require('nodejs-websocket'),
+    websocket = require('nodejs-websocket');
+
+var ws;
+
+try {
     ws = websocket.connect(
         process.env.WEBSOCKET_SERVER || 'ws://localhost:8001',
-        () => {
-            console.log('connected to websocket server');
-        }
+        () => { console.log('connected to websocket server'); }
     );
+} catch (e) {
+    console.log('could not connect to websocket server');
+}
 
 let queue = [];
 

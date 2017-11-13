@@ -35,6 +35,12 @@ To run test websocket server:
 
 `npm run websocket`
 
+**Important**
+
+Make sure to keep the test websocket server if you don't have the real websocket server app working.
+
+This server won't work (for now) without a websocket server to connect.
+
 ## Testing queue
 
 Run the following code on your browser terminal to create random requests to the queue and test the application:
@@ -58,3 +64,7 @@ setInterval(() => {
         }).then((r) => r.json())
 }, Math.random()*5000);
 ```
+
+## Collecting CSV data
+
+The app will create a file named `entries.csv` to add all the messages that have been sent to the websocket server. All the sent messages that could not be sent to the websocket server will be stored at `entries_failed.csv`.
