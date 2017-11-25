@@ -28,4 +28,4 @@ app.post('/message', (req, res) => {
     res.json(req.body);
 });
 
-app.listen(process.env.port || 8080);
+app.listen(process.env.PORT || 8080);
