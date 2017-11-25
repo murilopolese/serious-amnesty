@@ -3289,9 +3289,9 @@ let successView = (state, emit) => {
     `;
 }
 
-app.use(appState);
-app.route('/', mainView);
-app.route('/success', successView);
-app.mount('body');
+// app.use(appState);
+// app.route('/', mainView);
+// app.route('/success', successView);
+// app.mount('body');
 
 },{"choo":5,"choo/html":4}]},{},[31]);

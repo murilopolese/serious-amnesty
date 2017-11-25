@@ -2,10 +2,70 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Form</title>
+        <title>LIGHT UP THE DARK</title>
         <script type="text/javascript" src="bundle.js"></script>
+        <link rel="stylesheet" href="/typography.css">
+        <link rel="stylesheet" href="/toggle.css">
         <link rel="stylesheet" href="/main.css">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     </head>
-    <body></body>
+    <body>
+        <div class="container">
+            <div class="title">
+                Light up the dark
+            </div>
+            <div class="description">
+                Bring hope and justice to people who suffer human rights violations. <br>
+                Experience how you can light up the dark in the lives of those that suffer great <br>
+                injustices by having your signature light up the flame in the projection.
+            </div>
+            <div class="label">LAND / COUNTRY</div>
+            <div class="row">
+                <div class="selectable">
+                    <div class="text">Iceland</div>
+                </div>
+                <div class="selectable">
+                    <div class="text">International</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="field">
+                    <div class="label no-margin">NAFN / NAME</div>
+                    <div class="input">
+                        <input type="text">
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="label no-margin">EFTIRNAFN / LAST NAME</div>
+                    <div class="input">
+                        <input type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="toggle">
+                    <input class="tgl tgl-ios" id="checkbox" type="checkbox"/>
+                    <label class="tgl-btn" for="checkbox"></label>
+                </div>
+                <div class="toggle-description">
+                    I want to sign 10 urgent cases of individuals who suffer
+                    human rights violations
+                </div>
+            </div>
+
+            <button class="call-to-action" disabled>
+                Sign the cases
+            </button>
+
+            <div class="disclaimer">
+                No other personal information but your name will accompany the
+                letter to the appropriate government.
+            </div>
+
+            <div class="logo">
+                <img src="/assets/logo.png" width="170" alt="">
+            </div>
+        </div>
+
+    </body>
 </html>

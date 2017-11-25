@@ -137,7 +137,7 @@ let successView = (state, emit) => {
     `;
 }
 
-app.use(appState);
-app.route('/', mainView);
-app.route('/success', successView);
-app.mount('body');
+// app.use(appState);
+// app.route('/', mainView);
+// app.route('/success', successView);
+// app.mount('body');
