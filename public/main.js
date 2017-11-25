@@ -6,138 +6,174 @@ let appState = function(state, emitter) {
     let initialState = {
         data: {
             name: '',
-            email: '',
-            country: ''
-        },
-        validated: false,
-        errors: {
-            name: '',
-            email: '',
+            lastname: '',
             country: '',
-            connection: ''
-        }
+            terms: false
+        },
+        validated: false
     };
-    state.errors = initialState.errors;
     state.data = initialState.data;
-    emitter.on('loadData', (data) => {
-        state.data = data;
-    });
+
     emitter.on('validate', () => {
         let validated = true;
         if (!state.data.name) {
-            state.errors.name = 'Please fill in your name.';
             validated = false;
-        } else {
-            state.errors.name = '';
         }
-        if (!state.data.email) {
-            state.errors.email = 'Please fill in your email.';
+        if (!state.data.lastname) {
             validated = false;
-        } else {
-            state.errors.email = '';
         }
         if (!state.data.country) {
-            state.errors.country = 'Please pick a country.';
             validated = false;
-        } else {
-            state.errors.country = '';
+        }
+        if (!state.data.terms) {
+            validated = false;
         }
         state.validated = validated;
+        emitter.emit('render');
+    });
 
-        emitter.emit('render');
-    });
-    emitter.on('error', (data) => {
-        state.errors[data.element] = data.message;
-        emitter.emit('render');
-    });
     emitter.on('success', () => {
-        state.errors = initialState.errors;
-        emitter.emit('render');
-        window.location = '/success';
+        emitter.emit('pushState', `/success`);
     });
 }
 
 let mainView = (state, emit) => {
     let submitForm = (e) => {
         e.preventDefault();
-        let formData = new FormData(e.currentTarget),
-            data = {
-                name: formData.get('name'),
-                email: formData.get('email'),
-                country: formData.get('country')
-            };
-
-        emit('loadData', data);
-        emit('validate');
-
-        if(!state.validated) {
-            return false;
-        }
 
         fetch('/message', {
             headers: {
                 'Content-Type': 'application/json'
             },
             method: 'post',
-            body: JSON.stringify(data)
+            body: JSON.stringify(state.data)
         }).then((r) => r.json())
         .then((res) => {
             emit('success');
         })
         .catch((err) => {
-            emit('error', 'connection', 'Connection lost.')
+            console.log('error', err);
         });
         return false;
     }
+
+    let onToggleCountry = (e) => {
+        e.preventDefault()
+        let country = e.path[1] ? e.path[1].getAttribute('id') : '';
+        state.data.country = country;
+        emit('validate');
+    }
+
+    let onToggleTerms = (e) => {
+        e.preventDefault()
+        state.data.terms = e.target.checked;
+        emit('validate');
+    }
+
+    let onInputChange = (e) => {
+        let field = e.target.getAttribute('name'),
+            value = e.target.value;
+        state.data[field] = value;
+        emit('validate');
+    }
+
     return html`
-        <body>
-            <form onsubmit=${submitForm}>
-                <p>
-                    <input
-                        type="text"
-                        name="name"
-                        placeholder="Your name"
-                        value="${state.data.name}" />
-                </p>
-                <p>${state.errors.name}</p>
-                <p>
-                    <input
-                    type="email"
-                    name="email"
-                    placeholder="Your email"
-                    value="${state.data.email}" />
-                </p>
-                <p>${state.errors.email}</p>
-                <p>
-                    <select name="country">
-                        <option value="">Pick a country</option>
-                        <option value="IS" selected="${state.data.country=='IS'}">Iceland</option>
-                        <option value="VE" selected="${state.data.country=='VE'}">Venezuela</option>
-                        <option value="SW" selected="${state.data.country=='SW'}">Sweden</option>
-                        <option value="BR" selected="${state.data.country=='BR'}">Brazil</option>
-                        <option value="DE" selected="${state.data.country=='GE'}">Germany</option>
-                    </select>
-                </p>
-                <p>${state.errors.country}</p>
-                <p><button>Submit</button></p>
-                <p>${state.errors.connection}</p>
-            </form>
-        </body>
+    <body class="dark-bg">
+        <form onsubmit=${submitForm}>
+            <div class="container">
+                <div class="title">
+                    Light up the dark
+                </div>
+                <div class="description">
+                    Bring hope and justice to people who suffer human rights violations. <br>
+                    Experience how you can light up the dark in the lives of those that suffer great <br>
+                    injustices by having your signature light up the flame in the projection.
+                </div>
+                <div class="label">LAND / COUNTRY</div>
+                <div class="row">
+                    <div id="iceland"
+                        selected=${state.data.country=='iceland'}
+                        class="selectable"
+                        ontouchstart=${onToggleCountry}>
+                        <div class="text">Iceland</div>
+                    </div>
+                    <div id="international"
+                        selected=${state.data.country=='international'}
+                        class="selectable"
+                        ontouchstart=${onToggleCountry}>
+                        <div class="text">International</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="field">
+                        <div class="label no-margin">NAFN / NAME</div>
+                        <div class="input">
+                            <input type="text" name="name" onkeyup=${onInputChange} value=${state.data.name}>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="label no-margin">EFTIRNAFN / LAST NAME</div>
+                        <div class="input">
+                            <input type="text" name="lastname" onkeyup=${onInputChange} value=${state.data.lastname}>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="toggle">
+                        <input class="tgl tgl-ios" id="checkbox" type="checkbox"/ checked=${state.data.terms} onchange=${onToggleTerms}>
+                        <label class="tgl-btn" for="checkbox"></label>
+                    </div>
+                    <div class="toggle-description">
+                        I want to sign 10 urgent cases of individuals who suffer
+                        human rights violations
+                    </div>
+                </div>
+
+                <button class="call-to-action" disabled=${!state.validated}>
+                    Sign the cases
+                </button>
+
+                <div class="disclaimer">
+                    No other personal information but your name will accompany the
+                    letter to the appropriate government.
+                </div>
+
+                <div class="logo">
+                    <img src="/assets/logo.png" width="170" alt="">
+                </div>
+            </div>
+        </form>
+    </body>
     `;
+
 }
 
 let successView = (state, emit) => {
+    console.log(state);
     return html`
     <body>
-        <div>
-            <h1>Thank you!</h1>
-            <p><a href="/">Go back</a></p>
+        <div class="container">
+            <div class="success-title">
+                Thank you ${state.data.name} for keeping the flame alive.
+            </div>
+            <div class="success-description">
+                Your name will appear in the projection in just a moment.
+            </div>
+            <div class="success-share">
+                <p><strong>Wait, wait, wait, you’re not done yet...</strong></p>
+                <p>
+                    Help us collect more signatures by sharing a photo using <strong>#eglysiuppmyrkrid</strong>
+                </p>
+            </div>
+            <a class="call-to-action" href="/">
+                Start over
+            </a>
         </div>
     </body>
     `;
 }
 
-// app.use(appState);
-// app.route('/', mainView);
-// app.route('/success', successView);
-// app.mount('body');
+app.use(appState);
+app.route('/', mainView);
+app.route('/success', successView);
+app.mount('body');

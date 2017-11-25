@@ -4,6 +4,7 @@
     --grey: #C3C3C3;
     --grey-medium: #A5A5A5;
     --grey-light: #E5E5E5;
+    --grey-lightest: #F5F5F5;
     --white: #FFFFFF;
     --yellow: #FFF84E;
     --green: #4BD964;
@@ -25,7 +26,6 @@ body {
     min-width: 100vw;
     min-height: 100vh;
     margin: 0;
-    background: var(--black);
 
     font-family: 'Amnesty Trade Gothic';
     font-size: var(--font-body);
@@ -47,6 +47,9 @@ input[type="text"] {
     border-bottom: solid 1px var(--grey);
     height: 40px;
     width: 95%;
+}
+.dark-bg {
+    background: var(--black);
 }
 .container {
     width: 100%;
@@ -71,12 +74,45 @@ input[type="text"] {
     margin-bottom: 10px;
     text-align: center;
 }
+.success-title {
+    font-family: 'Amnesty Trade Gothic Cn';
+    font-size: var(--font-huge);
+    line-height: var(--font-huge-line-height);
+    font-weight: bold;
+    color: var(--black);
+    margin-top: 140px;
+    margin-bottom: 30px;
+    text-align: center;
+    width: 600px;
+    letter-spacing: -2px;
+}
 
 .description {
     color: var(--grey-dark);
     text-align: center;
     width: 718px;
     margin-bottom: 36px;
+}
+
+.success-description {
+    color: var(--grey-medium);
+    text-align: center;
+    width: 600px;
+    margin-bottom: 36px;
+}
+
+.success-share {
+    width: 680px;
+    background: var(--grey-lightest);
+    padding: 12px 12px;
+    text-align: center;
+    font-size: var(--font-small);
+    line-height: 16px;
+    color: var(--grey-dark);
+}
+
+.success-share strong {
+    color: var(--black);
 }
 
 .label {
@@ -97,14 +133,16 @@ input[type="text"] {
 }
 
 .selectable {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     height: 50px;
     border: solid 1px var(--grey-medium);
     margin-bottom: 23px;
 }
 .selectable .text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
     font-family: 'Amnesty Trade Gothic Cn';
     font-weight: bold;
     text-transform: uppercase;
@@ -112,11 +150,11 @@ input[type="text"] {
     opacity: 0.75;
 }
 
-.selectable.selected {
+.selectable[selected] {
     background: var(--grey-light);
     color: var(--grey-dark);
 }
-.selectable.selected .text {
+.selectable[selected] .text {
     color: var(--grey-dark);
 }
 
@@ -157,6 +195,7 @@ input[type="text"] {
     padding: 20px 44px;
     margin-top: 46px;
     margin-bottom: 36px;
+    text-decoration: none;
 }
 .call-to-action:disabled {
     background: var(--grey-dark);
