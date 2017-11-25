@@ -36,7 +36,11 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
-input[type="text"] {
+input[type=text] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
     font-family: 'Amnesty Trade Gothic';
     font-size: var(--font-big);
     line-height: var(--font-big-line-height);
@@ -44,9 +48,11 @@ input[type="text"] {
     background: none;
     outline: none;
     border: none;
+    border-radius: 0;
     border-bottom: solid 1px var(--grey);
     height: 40px;
-    width: 95%;
+    width: 90%;
+    padding: 0;
 }
 .dark-bg {
     background: var(--black);
@@ -69,7 +75,7 @@ input[type="text"] {
     text-transform: uppercase;
     font-weight: bold;
     color: var(--grey-light);
-    margin-top: 67px;
+    margin-top: 47px;
     margin-bottom: 10px;
     text-align: center;
 }
