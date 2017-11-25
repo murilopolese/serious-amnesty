@@ -3154,16 +3154,49 @@ let html = require('choo/html'),
     choo = require('choo'),
     app = choo();
 
-let appState = function(state, emitter) {
-    let initialState = {
-        data: {
-            name: '',
-            lastname: '',
-            country: '',
-            terms: false
-        },
-        validated: false
-    };
+let content = {
+    international: {
+        title: 'LIGHT UP THE DARK',
+        description: 'Bring hope and justice to people who suffer human rights violations.\n Experience how you can light up the dark in the lives of those that suffer great\n injustices by having your signature light up the flame in the projection.',
+        toggleDescription: 'I want to sign 10 urgent cases of individuals who suffer human rights violations',
+        callToAction: 'SIGN THE CASES',
+        disclaimer: 'No other personal information but your name will accompany the letter to the appropriate government.',
+        successTitle: 'Thank you :name for keeping the flame alive.',
+        successDescription: 'Your name will appear in the projection in just a moment.',
+        successShareTitle: 'Wait, wait, wait, you’re not done yet...',
+        successShareDescription: 'Help us collect more signatures by sharing a photo using ',
+        startOver: 'START OVER'
+    },
+    iceland: {
+        title: 'LÝSTU UPP MYRKRIÐ',
+        description: 'Krefstu réttlætis fyrir þolendur mannréttindabrota og færðu þeim von með undirskrift þinni. Upplifðu hvernig þú lýsir upp myrkrið í lífi þeirra sem beittir eru órétti með nafn þitt að vopni.',
+        toggleDescription: 'Ég vil skrifa undir 10 aðkallandi mál einstaklinga sem sæta mannréttindabrotum.',
+        callToAction: 'SIGN THE CASES',
+        disclaimer: 'Engar aðrar persónuupplýsingar en nafn þitt munu fylgja bréfinu á viðkomandi stjórnvöld.',
+        successTitle: 'Takk fyrir að halda\n loganum lifandi',
+        successDescription: 'Nafn þitt mun varpast á kirkjuvegginn eftir augnablik.',
+        successShareTitle: 'Bíddu aðeins, þetta er ekki alveg búið',
+        successShareDescription: 'Hjálpaðu okkur að safna fleiri undirskriftum með því að deila mynd af þér með myllumerkinu ',
+        startOver: 'START OVER'
+    }
+}
+
+let localizeContent = (state, section) => {
+    let country = state.data.country || 'international';
+    return content[country][section];
+}
+
+let initialState = {
+    data: {
+        name: '',
+        lastname: '',
+        country: '',
+        terms: false
+    },
+    validated: false
+};
+
+let appState = (state, emitter) => {
     state.data = initialState.data;
 
     emitter.on('validate', () => {
@@ -3191,8 +3224,6 @@ let appState = function(state, emitter) {
 
 let mainView = (state, emit) => {
     let submitForm = (e) => {
-        e.preventDefault();
-
         fetch('/message', {
             headers: {
                 'Content-Type': 'application/json'
@@ -3210,14 +3241,12 @@ let mainView = (state, emit) => {
     }
 
     let onToggleCountry = (e) => {
-        e.preventDefault()
         let country = e.path[1] ? e.path[1].getAttribute('id') : '';
         state.data.country = country;
         emit('validate');
     }
 
     let onToggleTerms = (e) => {
-        e.preventDefault()
         state.data.terms = e.target.checked;
         emit('validate');
     }
@@ -3231,28 +3260,26 @@ let mainView = (state, emit) => {
 
     return html`
     <body class="dark-bg">
-        <form onsubmit=${submitForm}>
+        <form>
             <div class="container">
                 <div class="title">
-                    Light up the dark
+                    ${localizeContent(state, 'title')}
                 </div>
                 <div class="description">
-                    Bring hope and justice to people who suffer human rights violations. <br>
-                    Experience how you can light up the dark in the lives of those that suffer great <br>
-                    injustices by having your signature light up the flame in the projection.
+                    ${localizeContent(state, 'description')}
                 </div>
                 <div class="label">LAND / COUNTRY</div>
                 <div class="row">
                     <div id="iceland"
                         selected=${state.data.country=='iceland'}
                         class="selectable"
-                        ontouchstart=${onToggleCountry}>
+                        onclick=${onToggleCountry}>
                         <div class="text">Iceland</div>
                     </div>
                     <div id="international"
                         selected=${state.data.country=='international'}
                         class="selectable"
-                        ontouchstart=${onToggleCountry}>
+                        onclick=${onToggleCountry}>
                         <div class="text">International</div>
                     </div>
                 </div>
@@ -3260,34 +3287,48 @@ let mainView = (state, emit) => {
                     <div class="field">
                         <div class="label no-margin">NAFN / NAME</div>
                         <div class="input">
-                            <input type="text" name="name" onkeyup=${onInputChange} value=${state.data.name}>
+                            <input
+                            type="text"
+                            name="name"
+                            onkeyup=${onInputChange}
+                            value=${state.data.name}>
                         </div>
                     </div>
                     <div class="field">
                         <div class="label no-margin">EFTIRNAFN / LAST NAME</div>
                         <div class="input">
-                            <input type="text" name="lastname" onkeyup=${onInputChange} value=${state.data.lastname}>
+                            <input
+                            type="text"
+                            name="lastname"
+                            onkeyup=${onInputChange}
+                            value=${state.data.lastname}>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="toggle">
-                        <input class="tgl tgl-ios" id="checkbox" type="checkbox"/ checked=${state.data.terms} onchange=${onToggleTerms}>
+                        <input
+                            class="tgl tgl-ios"
+                            id="checkbox"
+                            type="checkbox"/
+                            checked=${state.data.terms}
+                            onchange=${onToggleTerms}>
                         <label class="tgl-btn" for="checkbox"></label>
                     </div>
                     <div class="toggle-description">
-                        I want to sign 10 urgent cases of individuals who suffer
-                        human rights violations
+                        ${localizeContent(state, 'toggleDescription')}
                     </div>
                 </div>
 
-                <button class="call-to-action" disabled=${!state.validated}>
+                <button
+                    class="call-to-action"
+                    disabled=${!state.validated}
+                    onclick=${submitForm}>
                     Sign the cases
                 </button>
 
                 <div class="disclaimer">
-                    No other personal information but your name will accompany the
-                    letter to the appropriate government.
+                    ${localizeContent(state, 'disclaimer')}
                 </div>
 
                 <div class="logo">
@@ -3301,23 +3342,25 @@ let mainView = (state, emit) => {
 }
 
 let successView = (state, emit) => {
-    console.log(state);
+    let onStartOver = (e) => {
+        window.location = '/';
+    }
     return html`
     <body>
         <div class="container">
             <div class="success-title">
-                Thank you ${state.data.name} for keeping the flame alive.
+                ${localizeContent(state, 'successTitle').replace(':name', state.data.name)}
             </div>
             <div class="success-description">
-                Your name will appear in the projection in just a moment.
+                ${localizeContent(state, 'successDescription')}
             </div>
             <div class="success-share">
-                <p><strong>Wait, wait, wait, you’re not done yet...</strong></p>
+                <p><strong>${localizeContent(state, 'successShareTitle')}</strong></p>
                 <p>
-                    Help us collect more signatures by sharing a photo using <strong>#eglysiuppmyrkrid</strong>
+                    ${localizeContent(state, 'successShareDescription')} <strong>#eglysiuppmyrkrid</strong>
                 </p>
             </div>
-            <a class="call-to-action" href="/">
+            <a class="start-over" onclick=${onStartOver}>
                 Start over
             </a>
         </div>

@@ -11,11 +11,6 @@ let writeToCSV = (name, email, country) => {
     fs.appendFileSync('entries.csv', `${name};${email};${country};${time}\n`);
 }
 
-let writeFailed = (name, email, country) => {
-    let time = Date.now();
-    fs.appendFileSync('entries_failed.csv', `${name};${email};${country};${time}\n`);
-}
-
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
