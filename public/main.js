@@ -89,7 +89,7 @@ let mainView = (state, emit) => {
     }
 
     let onToggleCountry = (e) => {
-        let country = e.path[1] ? e.path[1].getAttribute('id') : '';
+        let country = e.target.getAttribute('id');
         state.data.country = country;
         emit('validate');
     }
@@ -118,17 +118,19 @@ let mainView = (state, emit) => {
                 </div>
                 <div class="label">LAND / COUNTRY</div>
                 <div class="row">
-                    <div id="iceland"
+                    <div class="selectable"
                         selected=${state.data.country=='iceland'}
-                        class="selectable"
                         onclick=${onToggleCountry}>
-                        <div class="text">Iceland</div>
+                        <div id="iceland" class="text">
+                            Iceland
+                        </div>
                     </div>
-                    <div id="international"
+                    <div class="selectable"
                         selected=${state.data.country=='international'}
-                        class="selectable"
                         onclick=${onToggleCountry}>
-                        <div class="text">International</div>
+                        <div id="international" class="text">
+                            International
+                        </div>
                     </div>
                 </div>
                 <div class="row">
