@@ -3466,6 +3466,11 @@ let content = {
         successDescription: 'Your name will appear in the projection in just a moment.',
         successShareTitle: 'Wait, wait, wait, you’re not done yet...',
         successShareDescription: 'Help us collect more signatures by sharing a photo using ',
+        questionCountry: 'What\'s your country?',
+        questionName: 'What\'s your name',
+        holder: 'Tap here to start typing',
+        plaseCountry: 'Please select your country',
+        pleaseName: 'Please type your name',
         startOver: 'START OVER'
     },
     iceland: {
@@ -3474,10 +3479,15 @@ let content = {
         toggleDescription: 'Ég vil skrifa undir 10 aðkallandi mál einstaklinga sem sæta mannréttindabrotum.',
         callToAction: 'SIGN THE CASES',
         disclaimer: 'Engar aðrar persónuupplýsingar en nafn þitt munu fylgja bréfinu á viðkomandi stjórnvöld.',
-        successTitle: 'Takk fyrir að halda\n loganum lifandi',
+        successTitle: 'Takk fyrir :name að halda\n loganum lifandi',
         successDescription: 'Nafn þitt mun varpast á kirkjuvegginn eftir augnablik.',
         successShareTitle: 'Bíddu aðeins, þetta er ekki alveg búið',
         successShareDescription: 'Hjálpaðu okkur að safna fleiri undirskriftum með því að deila mynd af þér með myllumerkinu ',
+        questionCountry: 'HVAÐ ER ÞITT LAND // Confirm',
+        questionName: 'Hvað heitir þú // Confirm',
+        holder: 'Tap here to start typing in Iceland',
+        plaseCountry: 'Please select your country',
+        pleaseName: 'Please type your name in Iceland',
         startOver: 'START OVER'
     }
 }
@@ -3578,9 +3588,9 @@ let countryView = (state, emit) => {
         <form>
             <div class="container">
                 <div class="title">
-                    ${content.international.title}
+                    ${localizeContent(state, 'title')}
                 </div>
-                <div class="label">What's your country?</div>
+                <div class="label">${state.data.country!== 'iceland' ? content.international.questionCountry : content.iceland.questionCountry}</div>
                 <div class="row">
                     <div class="selectable"
                         selected=${state.data.country=='iceland'}
@@ -3634,16 +3644,16 @@ let namesView = (state, emit) => {
                 </div>
                 <div class="row">
                     <div class="field">
-                        <div class="label">What\'s your name</div>
+                        <div class="label">${localizeContent(state, 'questionName')}</div>
                         <div class="input">
                             <input
                             type="text"
                             name="name"
-                            placeholder="Tap here to start typing"
+                            placeholder=${localizeContent(state, 'holder')}
                             onkeyup=${onInputChange}
                             value=${state.data.name}>
                         </div>
-                        <div class="label-names">Please type your name</div> 
+                        <div class="label-names">${localizeContent(state, 'pleaseName')}</div> 
                     </div>
                 </div>
                 <a
