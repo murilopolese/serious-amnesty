@@ -29,6 +29,10 @@ let content = {
     }
 }
 
+let back = () => {
+    history.go(-1);
+}
+
 let localizeContent = (state, section) => {
     let country = state.data.country || 'international';
     return content[country][section];
@@ -36,189 +40,181 @@ let localizeContent = (state, section) => {
 
 let initialState = {
     data: {
+        step: 0,
         name: '',
-        lastname: '',
         country: '',
         terms: false
     },
-    validated: false
+    validationError: {
+        name: false,
+        country: false,
+        terms: false
+    }
 };
 
 let appState = (state, emitter) => {
     state.data = initialState.data;
+    state.validationError = initialState.validationError;
 
-    emitter.on('validate', () => {
-        let validated = true;
-        if (!state.data.name) {
-            validated = false;
+    emitter.on('setCountry', (country) => {
+        state.data.country = country;
+    });
+    emitter.on('setName', (name) => {
+        state.data.name = name;
+    });
+    emitter.on('setTerms', (terms) => {
+        state.data.terms = terms;
+    });
+    emitter.on('validateCountry', () => {
+        if (state.data.country === '') {
+            state.validationError.country = true;
+        } else {
+            state.validationError.country = false;
         }
-        if (!state.data.lastname) {
-            validated = false;
-        }
-        if (!state.data.country) {
-            validated = false;
-        }
-        if (!state.data.terms) {
-            validated = false;
-        }
-        state.validated = validated;
         emitter.emit('render');
     });
-
-    emitter.on('success', () => {
-        emitter.emit('pushState', `/success`);
+    emitter.on('validateName', () => {
+        if (state.data.name === '') {
+            state.validationError.name = true;
+        } else {
+            state.validationError.name = false;
+        }
+        emitter.emit('render');
     });
+    emitter.on('validateTerms', () => {
+        if (state.data.terms === false) {
+            state.validationError.terms = true;
+        } else {
+            state.validationError.terms = false;
+        }
+        emitter.emit('render');
+    });
+    emitter.on('reset', () => {
+        state.data = initialState.data;
+        state.validationError = initialState.validationError;
+    })
 }
 
-let mainView = (state, emit) => {
-    let submitForm = (e) => {
-        fetch('/message', {
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            method: 'post',
-            body: JSON.stringify(state.data)
-        }).then((r) => r.json())
-        .then((res) => {
-            emit('success');
-        })
-        .catch((err) => {
-            console.log('error', err);
-        });
-        return false;
+let startView = (state, emit) => {
+    let next = () => {
+        emit('pushState', '/country');
     }
-
-    let onToggleCountry = (e) => {
-        let country = e.target.getAttribute('id');
-        state.data.country = country;
-        emit('validate');
-    }
-
-    let onToggleTerms = (e) => {
-        state.data.terms = e.target.checked;
-        emit('validate');
-    }
-
-    let onInputChange = (e) => {
-        let field = e.target.getAttribute('name'),
-            value = e.target.value;
-        state.data[field] = value;
-        emit('validate');
-    }
-
     return html`
-    <body class="dark-bg">
-        <form>
-            <div class="container">
-                <div class="title">
-                    ${localizeContent(state, 'title')}
-                </div>
-                <div class="description">
-                    ${localizeContent(state, 'description')}
-                </div>
-                <div class="label">LAND / COUNTRY</div>
-                <div class="row">
-                    <div class="selectable"
-                        selected=${state.data.country=='iceland'}
-                        onclick=${onToggleCountry}>
-                        <div id="iceland" class="text">
-                            Iceland
-                        </div>
-                    </div>
-                    <div class="selectable"
-                        selected=${state.data.country=='international'}
-                        onclick=${onToggleCountry}>
-                        <div id="international" class="text">
-                            International
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="field">
-                        <div class="label no-margin">NAFN / NAME</div>
-                        <div class="input">
-                            <input
-                            type="text"
-                            name="name"
-                            onkeyup=${onInputChange}
-                            value=${state.data.name}>
-                        </div>
-                    </div>
-                    <div class="field">
-                        <div class="label no-margin">EFTIRNAFN / LAST NAME</div>
-                        <div class="input">
-                            <input
-                            type="text"
-                            name="lastname"
-                            onkeyup=${onInputChange}
-                            value=${state.data.lastname}>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="toggle">
-                        <input
-                            class="tgl tgl-ios"
-                            id="checkbox"
-                            type="checkbox"/
-                            checked=${state.data.terms}
-                            onchange=${onToggleTerms}>
-                        <label class="tgl-btn" for="checkbox"></label>
-                    </div>
-                    <div class="toggle-description">
-                        ${localizeContent(state, 'toggleDescription')}
-                    </div>
-                </div>
-
-                <button
-                    class="call-to-action"
-                    disabled=${!state.validated}
-                    onclick=${submitForm}>
-                    Sign the cases
-                </button>
-
-                <div class="disclaimer">
-                    ${localizeContent(state, 'disclaimer')}
-                </div>
-
-                <div class="logo">
-                    <img src="/assets/logo.png" width="170" alt="">
-                </div>
+        <body>
+            <div>
+                Light in the dark
             </div>
-        </form>
-    </body>
-    `;
-
+            <div onclick=${next}>
+                Start
+            </div>
+        </body>
+    `
 }
 
-let successView = (state, emit) => {
-    let onStartOver = (e) => {
-        window.location = '/';
+let countryView = (state, emit) => {
+    let next = () => {
+        emit('validateCountry');
+        if (state.validationError.country === false) {
+            emit('pushState', '/name');
+        }
+    }
+    let setCountry = (e) => {
+        emit('setCountry', e.target.getAttribute('id'));
+        emit('validateCountry');
+    }
+    let errorStyle = () => {
+        if (state.validationError.country) {
+            return 'background: red';
+        } else {
+            return 'background: none';
+        }
     }
     return html`
-    <body>
-        <div class="container">
-            <div class="success-title">
-                ${localizeContent(state, 'successTitle').replace(':name', state.data.name)}
+        <body>
+            <div style="${errorStyle()}">
+                Country
             </div>
-            <div class="success-description">
-                ${localizeContent(state, 'successDescription')}
+            <div onclick=${setCountry} id="international" style="${state.data.country==='international'?'background:yellow':'background:none'}">
+                International
             </div>
-            <div class="success-share">
-                <p><strong>${localizeContent(state, 'successShareTitle')}</strong></p>
-                <p>
-                    ${localizeContent(state, 'successShareDescription')} <strong>#eglysiuppmyrkrid</strong>
-                </p>
+            <div onclick=${setCountry} id="icelandic" style="${state.data.country==='icelandic'?'background:yellow':'background:none'}">
+                Icelandic
             </div>
-            <a class="start-over" onclick=${onStartOver}>
-                Start over
-            </a>
-        </div>
-    </body>
-    `;
+            <div>
+                error: ${state.validationError.country}
+            </div>
+            <div onclick=${back}>
+                Back
+            </div>
+            <div onclick=${next}>
+                Next
+            </div>
+        </body>
+    `
+}
+
+let nameView = (state, emit) => {
+    let next = () => {
+        emit('pushState', '/terms');
+    }
+    return html`
+        <body>
+            <div>
+                Name
+            </div>
+            <div onclick=${back}>
+                Back
+            </div>
+            <div onclick=${next}>
+                Next
+            </div>
+        </body>
+    `
+}
+
+let termsView = (state, emit) => {
+    let next = () => {
+        emit('pushState', '/finished');
+    }
+    return html`
+        <body>
+            <div>
+                Terms
+            </div>
+            <div onclick=${back}>
+                Back
+            </div>
+            <div onclick=${next}>
+                Next
+            </div>
+        </body>
+    `
+}
+
+let finishedView = (state, emit) => {
+    let reset = () => {
+        emit('reset')
+        emit('pushState', '/');
+    }
+    return html`
+        <body>
+            <div>
+                Finished
+            </div>
+            <div onclick=${back}>
+                Back
+            </div>
+            <div onclick=${reset}>
+                Reset
+            </div>
+        </body>
+    `
 }
 
 app.use(appState);
-app.route('/', mainView);
-app.route('/success', successView);
+app.route('/', startView);
+app.route('/country', countryView);
+app.route('/name', nameView);
+app.route('/terms', termsView);
+app.route('/finished', finishedView);
 app.mount('body');
