@@ -43,21 +43,40 @@ let initialState = {
     validated: false
 };
 
+
+
+
 let appState = (state, emitter) => {
     state.data = initialState.data;
 
-    emitter.on('validate', () => {
-        let validated = true;
+    emitter.on('validateCountry', () => {
+        if(state.data.country){  
+            emitter.emit('render')
+            }
+        })
 
-        if (!state.data.terms) {
-            validated = false;
-        }
-        state.validated = validated;
-        emitter.emit('render');
+    emitter.on('confirmCountry', () => {
+        emitter.emit('pushState', `/names`);
     });
 
-    emitter.on('success', () => {
-        emitter.emit('pushState', `/success`);
+    emitter.on('validateNames', () => {
+        if(state.data.name) {
+            emitter.emit('render')
+            }   
+        })
+
+    emitter.on('confirmNames', () => {
+        emitter.emit('pushState', `/sign`);
+    });
+    
+    emitter.on('validateSign', () => {
+            emitter.emit('render')
+        })
+
+    emitter.on('confirmSign', () => {
+        if(state.data.terms) {
+            emitter.emit('pushState', `/success`);
+        }      
     });
 }
 
@@ -94,13 +113,13 @@ let countryView = (state, emit) => {
     let onToggleCountry = (e) => {
         let country = e.target.getAttribute('id');
         state.data.country = country;
-        emit('validate');
+        emit('validateCountry');
     }
-    let onCountry = (e) => {
-        window.location = '/names';
+    let clickCountry = () => {
+        emit('confirmCountry');
     }
     
-    
+ 
     return html`
     <body class="dark-bg">
         <form>
@@ -125,11 +144,13 @@ let countryView = (state, emit) => {
                         </div>
                     </div>
                 </div>
-                <div class="label-country" style="visibility: ${state.data.country== '' ? 'visible' : 'hidden'}"> Please select your country</div>         
+                <div class="label-country">
+                    <p style="visibility: ${state.data.country== '' ? 'visible' : 'hidden'}"> Please select your country </p>
+                </div>         
                 <a
                     class="next-one" 
                     style="visibility: ${state.data.country!== '' ? 'visible' : 'hidden'}"
-                    onclick=${onCountry}>
+                    onclick=${clickCountry}>
                     Next
                 </a>
             </div>
@@ -145,10 +166,10 @@ let namesView = (state, emit) => {
         let field = e.target.getAttribute('name'),
             value = e.target.value;
         state.data[field] = value;
-        emit('validate');
+        emit('validateNames');
     }
-    let onNames = (e) => {
-        window.location = '/sign';
+    let clickNames = () => {
+        emit('confirmNames');
     }
 
     return html`
@@ -175,7 +196,7 @@ let namesView = (state, emit) => {
                 <a
                     class="next-one"
                     style="visibility: ${state.data.name!== '' ? 'visible' : 'hidden'}"
-                    onclick=${onNames}>
+                    onclick=${clickNames}>
                     Next
                 </a>
             </div>
@@ -185,7 +206,15 @@ let namesView = (state, emit) => {
 
 }
 let signView = (state, emit) => {
-    let submitForm = (e) => {
+  
+
+    let onToggleTerms = (e) => {
+        state.data.terms = e.target.checked;
+        state.validated = !state.validated;
+        emit('validateSign');
+    }
+
+      let submitForm = (e) => {
         fetch('/message', {
             headers: {
                 'Content-Type': 'application/json'
@@ -194,17 +223,12 @@ let signView = (state, emit) => {
             body: JSON.stringify(state.data)
         }).then((r) => r.json())
         .then((res) => {
-            emit('success');
+            emit('confirmSign');
         })
         .catch((err) => {
             console.log('error', err);
         });
         return false;
-    }
-
-    let onToggleTerms = (e) => {
-        state.data.terms = e.target.checked;
-        emit('validate');
     }
 
     return html`

@@ -6,9 +6,9 @@ let path = require('path')
     bodyParser = require('body-parser'),
     app = express();
 
-let writeToCSV = (name, lastname, country) => {
+let writeToCSV = (name, country) => {
     let time = Date.now();
-    fs.appendFileSync('entries.csv', `${name};${lastname};${country};${time}\n`);
+    fs.appendFileSync('entries.csv', `${name};${country};${time}\n`);
 }
 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -22,9 +22,8 @@ app.get('/*', (req, res) => {
 
 app.post('/message', (req, res) => {
     let name = req.body.name,
-        lastname = req.body.lastname,
         country = req.body.country;
-    writeToCSV(name, lastname, country);
+    writeToCSV(name, country);
     res.json(req.body);
 });
 
