@@ -5,7 +5,7 @@ let html = require('choo/html'),
 let content = {
     international: {
         title: 'LIGHT UP THE DARK',
-        description: 'Bring hope and justice to people who suffer human rights violations.\n Experience how you can light up the dark in the lives of those that suffer great\n injustices by having your signature light up the flame in the projection.',
+        description: 'Bring hope and justice to people who suffer human rights violations.\n Light up the dark by having your signature light up the flame in the projection',
         toggleDescription: 'I want to sign 10 urgent cases of individuals who suffer human rights violations',
         callToAction: 'SIGN THE CASES',
         disclaimer: 'No other personal information but your name will accompany the letter to the appropriate government.',
@@ -13,6 +13,11 @@ let content = {
         successDescription: 'Your name will appear in the projection in just a moment.',
         successShareTitle: 'Wait, wait, wait, you’re not done yet...',
         successShareDescription: 'Help us collect more signatures by sharing a photo using ',
+        questionCountry: 'What\'s your country?',
+        questionName: 'What\'s your name',
+        holder: 'Tap here to start typing',
+        plaseCountry: 'Please select your country',
+        pleaseName: 'Please type your name',
         startOver: 'START OVER'
     },
     iceland: {
@@ -21,10 +26,15 @@ let content = {
         toggleDescription: 'Ég vil skrifa undir 10 aðkallandi mál einstaklinga sem sæta mannréttindabrotum.',
         callToAction: 'SIGN THE CASES',
         disclaimer: 'Engar aðrar persónuupplýsingar en nafn þitt munu fylgja bréfinu á viðkomandi stjórnvöld.',
-        successTitle: 'Takk fyrir að halda\n loganum lifandi',
+        successTitle: 'Takk fyrir :name að halda\n loganum lifandi',
         successDescription: 'Nafn þitt mun varpast á kirkjuvegginn eftir augnablik.',
         successShareTitle: 'Bíddu aðeins, þetta er ekki alveg búið',
         successShareDescription: 'Hjálpaðu okkur að safna fleiri undirskriftum með því að deila mynd af þér með myllumerkinu ',
+        questionCountry: 'HVAÐ ER ÞITT LAND // Confirm',
+        questionName: 'Hvað heitir þú // Confirm',
+        holder: 'Tap here to start typing in Iceland',
+        plaseCountry: 'Please select your country',
+        pleaseName: 'Please type your name in Iceland',
         startOver: 'START OVER'
     }
 }
@@ -37,75 +47,89 @@ let localizeContent = (state, section) => {
 let initialState = {
     data: {
         name: '',
-        lastname: '',
         country: '',
         terms: false
     },
     validated: false
 };
 
+
+
+
 let appState = (state, emitter) => {
     state.data = initialState.data;
 
-    emitter.on('validate', () => {
-        let validated = true;
-        if (!state.data.name) {
-            validated = false;
-        }
-        if (!state.data.lastname) {
-            validated = false;
-        }
-        if (!state.data.country) {
-            validated = false;
-        }
-        if (!state.data.terms) {
-            validated = false;
-        }
-        state.validated = validated;
-        emitter.emit('render');
+    emitter.on('validateCountry', () => {
+        if(state.data.country){  
+            emitter.emit('render')
+            }
+        })
+
+    emitter.on('confirmCountry', () => {
+        emitter.emit('pushState', `/names`);
     });
 
-    emitter.on('success', () => {
-        emitter.emit('pushState', `/success`);
+    emitter.on('validateNames', () => {
+        if(state.data.name) {
+            emitter.emit('render')
+            }   
+        })
+
+    emitter.on('confirmNames', () => {
+        emitter.emit('pushState', `/sign`);
+    });
+    
+    emitter.on('validateSign', () => {
+            emitter.emit('render')
+        })
+
+    emitter.on('confirmSign', () => {
+        if(state.data.terms) {
+            emitter.emit('pushState', `/success`);
+        }      
     });
 }
 
+
 let mainView = (state, emit) => {
-    let submitForm = (e) => {
-        fetch('/message', {
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            method: 'post',
-            body: JSON.stringify(state.data)
-        }).then((r) => r.json())
-        .then((res) => {
-            emit('success');
-        })
-        .catch((err) => {
-            console.log('error', err);
-        });
-        return false;
+
+    let onStart = (e) => {
+        window.location = '/country';
     }
+
+    return html`
+    <body class="dark-bg">
+        <form>
+            <div class="container">
+                
+                <div class="title-one">
+                    ${localizeContent(state, 'title')}
+                </div>
+                <div class="description-one">
+                    ${localizeContent(state, 'description')}
+                </div>
+                <a class="start-one" onclick=${onStart}>
+                Start
+                </a>
+            </div>
+        </form>
+    </body>
+    `;
+
+}
+
+let countryView = (state, emit) => {
 
     let onToggleCountry = (e) => {
         let country = e.target.getAttribute('id');
         state.data.country = country;
-        emit('validate');
+        emit('validateCountry');
     }
-
-    let onToggleTerms = (e) => {
-        state.data.terms = e.target.checked;
-        emit('validate');
+    let clickCountry = () => {
+        emit('confirmCountry');
     }
-
-    let onInputChange = (e) => {
-        let field = e.target.getAttribute('name'),
-            value = e.target.value;
-        state.data[field] = value;
-        emit('validate');
-    }
-
+    
+ 
     return html`
     <body class="dark-bg">
         <form>
@@ -113,17 +137,14 @@ let mainView = (state, emit) => {
                 <div class="title">
                     ${localizeContent(state, 'title')}
                 </div>
-                <div class="description">
-                    ${localizeContent(state, 'description')}
-                </div>
-                <div class="label">LAND / COUNTRY</div>
+                <div class="label">${state.data.country!== 'iceland' ? content.international.questionCountry : content.iceland.questionCountry}</div>
                 <div class="row">
                     <div class="selectable"
                         selected=${state.data.country=='iceland'}
                         onclick=${onToggleCountry}>
                         <div id="iceland" class="text">
                             Iceland
-                        </div>
+                        </div> 
                     </div>
                     <div class="selectable"
                         selected=${state.data.country=='international'}
@@ -133,41 +154,114 @@ let mainView = (state, emit) => {
                         </div>
                     </div>
                 </div>
+                <div class="label-country">
+                    <p style="visibility: ${state.data.country== '' ? 'visible' : 'hidden'}"> Please select your country </p>
+                </div>         
+                <a
+                    class="next-one" 
+                    style="visibility: ${state.data.country!== '' ? 'visible' : 'hidden'}"
+                    onclick=${clickCountry}>
+                    Next
+                </a>
+            </div>
+        </form>
+    </body>
+    `;
+
+}
+
+let namesView = (state, emit) => {
+
+    let onInputChange = (e) => {
+        let field = e.target.getAttribute('name'),
+            value = e.target.value;
+        state.data[field] = value;
+        emit('validateNames');
+    }
+    let clickNames = () => {
+        emit('confirmNames');
+    }
+
+    return html`
+    <body class="dark-bg">
+        <form>
+            <div class="container">
+                <div class="title">
+                    ${localizeContent(state, 'title')}
+                </div>
                 <div class="row">
                     <div class="field">
-                        <div class="label no-margin">NAFN / NAME</div>
+                        <div class="label">${localizeContent(state, 'questionName')}</div>
                         <div class="input">
                             <input
                             type="text"
                             name="name"
+                            placeholder=${localizeContent(state, 'holder')}
                             onkeyup=${onInputChange}
                             value=${state.data.name}>
                         </div>
-                    </div>
-                    <div class="field">
-                        <div class="label no-margin">EFTIRNAFN / LAST NAME</div>
-                        <div class="input">
-                            <input
-                            type="text"
-                            name="lastname"
-                            onkeyup=${onInputChange}
-                            value=${state.data.lastname}>
-                        </div>
+                        <div class="label-names">${localizeContent(state, 'pleaseName')}</div> 
                     </div>
                 </div>
+                <a
+                    class="next-one"
+                    style="visibility: ${state.data.name!== '' ? 'visible' : 'hidden'}"
+                    onclick=${clickNames}>
+                    Next
+                </a>
+            </div>
+        </form>
+    </body>
+    `;
+
+}
+let signView = (state, emit) => {
+  
+
+    let onToggleTerms = (e) => {
+        state.data.terms = e.target.checked;
+        state.validated = !state.validated;
+        emit('validateSign');
+    }
+
+      let submitForm = (e) => {
+        fetch('/message', {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            method: 'post',
+            body: JSON.stringify(state.data)
+        }).then((r) => r.json())
+        .then((res) => {
+            emit('confirmSign');
+        })
+        .catch((err) => {
+            console.log('error', err);
+        });
+        return false;
+    }
+
+    return html`
+    <body class="dark-bg">
+        <form>
+            <div class="container">
+                <div class="title">
+                    ${localizeContent(state, 'title')}
+                </div>
                 <div class="row">
-                    <div class="toggle">
-                        <input
-                            class="tgl tgl-ios"
-                            id="checkbox"
-                            type="checkbox"/
-                            checked=${state.data.terms}
-                            onchange=${onToggleTerms}>
-                        <label class="tgl-btn" for="checkbox"></label>
-                    </div>
-                    <div class="toggle-description">
-                        ${localizeContent(state, 'toggleDescription')}
-                    </div>
+                        <div class="label">SIGN FOR THE CASES</div>
+                        <div class="toggle">
+                            <input
+                                class="tgl tgl-ios"
+                                id="checkbox"
+                                type="checkbox"/
+                                checked=${state.data.terms}
+                                onchange=${onToggleTerms}>
+                            <label class="tgl-btn" for="checkbox"></label>
+                        </div>
+                        <div class="toggle-description">
+                            ${localizeContent(state, 'toggleDescription')}
+                        </div>   
                 </div>
 
                 <button
@@ -180,15 +274,10 @@ let mainView = (state, emit) => {
                 <div class="disclaimer">
                     ${localizeContent(state, 'disclaimer')}
                 </div>
-
-                <div class="logo">
-                    <img src="/assets/logo.png" width="170" alt="">
-                </div>
             </div>
         </form>
     </body>
     `;
-
 }
 
 let successView = (state, emit) => {
@@ -210,8 +299,8 @@ let successView = (state, emit) => {
                     ${localizeContent(state, 'successShareDescription')} <strong>#eglysiuppmyrkrid</strong>
                 </p>
             </div>
-            <a class="start-over" onclick=${onStartOver}>
-                Start over
+            <a class="start-end" onclick=${onStartOver}>
+                Start Again
             </a>
         </div>
     </body>
@@ -220,5 +309,9 @@ let successView = (state, emit) => {
 
 app.use(appState);
 app.route('/', mainView);
+app.route('/country', countryView);
+app.route('/names', namesView);
+app.route('/sign', signView);
 app.route('/success', successView);
 app.mount('body');
+

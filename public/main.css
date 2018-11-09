@@ -1,8 +1,10 @@
 :root {
     --black: #151515;
+    --grey-dark-plus: #4d4d4d;
     --grey-dark: #606060;
     --grey: #C3C3C3;
     --grey-medium: #A5A5A5;
+    --red-medium: #d81b1b;
     --grey-light: #E5E5E5;
     --grey-lightest: #F5F5F5;
     --white: #FFFFFF;
@@ -11,12 +13,15 @@
     --font-body: 20px;
     --font-body-line-height: 26px;
     --font-small: 18px;
+    --font-small-end: 22px;
     --font-small-line-height: 24px;
     --font-tiny: 12px;
     --font-tiny-line-height: 18px;
     --font-big: 22px;
     --font-big-line-height: 34px;
-    --font-huge: 64px;
+    --font-huge: 55px;
+    --font-huge-title: 70px;
+    --font-huge-end: 75px;
     --font-huge-line-height: 78px;
 }
 body {
@@ -53,6 +58,7 @@ input[type=text] {
     height: 40px;
     width: 90%;
     padding: 0;
+    margin-bottom: 6px;
 }
 .dark-bg {
     background: var(--black);
@@ -62,11 +68,14 @@ input[type=text] {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin: 0;
 }
 .row {
     width: 100%;
-    display: flex;
+    display: inline-flex;
     flex-direction: row;
+
+    
 }
 .title {
     font-family: 'Amnesty Trade Gothic Cn';
@@ -75,17 +84,29 @@ input[type=text] {
     text-transform: uppercase;
     font-weight: bold;
     color: var(--grey-light);
-    margin-top: 47px;
+    margin-top: 7%;
     margin-bottom: 10px;
     text-align: center;
 }
+.title-one {
+    font-family: 'Amnesty Trade Gothic Cn';
+    font-size: var(--font-huge-title);
+    line-height: var(--font-huge-line-height);
+    text-transform: uppercase;
+    font-weight: bold;
+    color: var(--grey-light);
+    margin-top: 20%;
+    margin-bottom: 10px;
+    text-align: center;
+    padding-bottom: 3%;
+}
 .success-title {
     font-family: 'Amnesty Trade Gothic Cn';
-    font-size: var(--font-huge);
+    font-size: var(--font-huge-end);
     line-height: var(--font-huge-line-height);
     font-weight: bold;
-    color: var(--black);
-    margin-top: 140px;
+    color: var(--grey-dark-plus);
+    margin-top: 130px;
     margin-bottom: 30px;
     text-align: center;
     width: 590px;
@@ -98,20 +119,28 @@ input[type=text] {
     width: 670px;
     margin-bottom: 36px;
 }
+.descriptio-one {
+    color: var(--grey-dark);
+    text-align: center;
+    width: 670px;
+    margin-bottom: 306px;
+}
 
 .success-description {
     color: var(--grey-medium);
     text-align: center;
     width: 600px;
-    margin-bottom: 36px;
+    margin-top: -10px; 
+    margin-bottom: 56px; 
+    font-size: var(--font-small-line-height);
 }
 
 .success-share {
-    width: 680px;
+    width: 820px;
     background: var(--grey-lightest);
     padding: 12px 12px;
     text-align: center;
-    font-size: var(--font-small);
+    font-size: var(--font-small-end);
     line-height: 20px;
     color: var(--grey-dark);
 }
@@ -127,9 +156,19 @@ input[type=text] {
     font-weight: bold;
     align-self: flex-start;
     margin-bottom: 17px;
+    margin-top: 20%;
+    font-size: var(--font-big);
 }
-.label.no-margin {
-    margin-bottom: 0px;
+.label-country {
+    font-family: 'Amnesty Trade Gothic Cn';
+    color: var(--grey-medium);
+    align-self: flex-start;
+}
+
+.label-names {
+    font-family: 'Amnesty Trade Gothic Cn';
+    color: var(--grey-medium);
+    align-self: flex-start;
 }
 
 .field,
@@ -139,8 +178,11 @@ input[type=text] {
 
 .selectable {
     height: 50px;
+    width: 10px;
     border: solid 1px var(--grey-medium);
-    margin-bottom: 23px;
+    margin-bottom: 6px;
+    border-radius: 7px;
+
 }
 .selectable .text {
     display: flex;
@@ -156,7 +198,7 @@ input[type=text] {
 }
 
 .selectable[selected] {
-    background: var(--grey-light);
+    background: var(--yellow);
     color: var(--grey-dark);
 }
 .selectable[selected] .text {
@@ -175,8 +217,10 @@ input[type=text] {
     display: inline-block;
     font-size: 16px;
     margin-right: 21px;
+    margin-top: 25%;
     flex-shrink: 1;
     outline: none;
+    margin-left: -18%;
 }
 .toggle-description {
     font-size: var(--font-small);
@@ -185,9 +229,61 @@ input[type=text] {
     align-self: flex-end;
     flex-grow: 1;
     padding-bottom: 2px;
+    
 }
 
-.start-over,
+.start-one {
+    background: var(--yellow);
+    border: none;
+    outline: none;
+    font-family: 'Amnesty Trade Gothic Cn';
+    font-size: var(--font-size-big);
+    font-weight: bold;
+    text-transform: uppercase;
+    color: var(--black);
+    border-radius: 7px;
+    padding: 20px 34px;
+    margin-top: 8%;
+    margin-bottom: 36px;
+    text-decoration: none;
+    width: 400px;
+    text-align: center;
+}
+.start-end {
+    background: var(--yellow);
+    border: none;
+    outline: none;
+    font-family: 'Amnesty Trade Gothic Cn';
+    font-size: var(--font-size-big);
+    font-weight: bold;
+    text-transform: uppercase;
+    color: var(--black);
+    border-radius: 7px;
+    padding: 20px 4px;
+    margin-top: 8%;
+    margin-bottom: 36px;
+    text-decoration: none;
+    width: 350px;
+    text-align: center;
+}
+.next-one {
+    background: var(--yellow);
+    border: none;
+    outline: none;
+    font-family: 'Amnesty Trade Gothic Cn';
+    font-size: var(--font-size-big);
+    font-weight: bold;
+    text-transform: uppercase;
+    color: var(--black);
+    border-radius: 7px;
+    padding: 10px 60px;
+    margin-top: 10px;
+    margin-bottom: 36px;
+    margin-left: 85%;
+    text-decoration: none;
+        
+}
+
 .call-to-action {
     background: var(--yellow);
     border: none;
@@ -197,11 +293,13 @@ input[type=text] {
     font-weight: bold;
     text-transform: uppercase;
     color: var(--black);
-    border-radius: 4px;
-    padding: 20px 44px;
-    margin-top: 46px;
+    border-radius: 7px;
+    padding: 20px 20px;
+    margin-top: 8%;
     margin-bottom: 36px;
+    width: 350px;
     text-decoration: none;
+        
 }
 .call-to-action:disabled {
     background: var(--grey-dark);
