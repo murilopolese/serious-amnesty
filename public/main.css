@@ -60,7 +60,7 @@ input[type=text] {
     margin-bottom: 6px;
     padding: 10px 0px;
 
-    
+
     background-image: url("/img/type.svg");
     background-position: 35%;
     background-repeat: no-repeat;
@@ -102,7 +102,7 @@ input[type=text] {
     text-transform: uppercase;
     font-weight: bold;
     color: var(--grey-light);
-    margin-top: 20%;
+    margin-top: 25%;
     margin-bottom: 10px;
     text-align: center;
     padding-bottom: 3%;
@@ -113,7 +113,7 @@ input[type=text] {
     line-height: var(--font-huge-line-height);
     font-weight: bold;
     color: var(--grey-dark-plus);
-    margin-top: 10%;
+    margin-top: 16%;
     margin-bottom: 30px;
     text-align: center;
     width: 590px;
@@ -264,7 +264,7 @@ input[type=text] {
     color: var(--black);
     border-radius: 7px;
     padding: 20px 4px;
-    margin-top: 7%;
+    margin-top: 5%;
     margin-bottom: 36px;
     text-decoration: none;
     width: 350px;
@@ -318,8 +318,19 @@ input[type=text] {
     width: 286px;
 }
 
-.logo {
-    position: absolute;
-    bottom: 45px;
-    right: 90px;
+.logo-left {
+    content:url(/img/amnesty_1.svg);
+    position: fixed;
+    top: 45px;
+    left: 45px;
+    width: 200px;
+}
+
+.logo-right {
+    content:url(/img/bref_yellow.svg);
+    position: fixed;
+    top: 45px;
+    right: 45px;
+    width: 140px;
+
 }

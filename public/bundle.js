@@ -3517,9 +3517,12 @@ let initialState = {
     }
 };
 
+
+
 let appState = (state, emitter) => {
     state.data = initialState.data;
     state.validationError = initialState.validationError;
+
 
     emitter.on('setCountry', (country) => {
         state.data.country = country;
@@ -3557,6 +3560,7 @@ let appState = (state, emitter) => {
     emitter.on('reset', () => {
         state.data = initialState.data;
         state.validationError = initialState.validationError;
+
     })
 }
 
@@ -3568,10 +3572,12 @@ let mainView = (state, emit) => {
     return html`
     <body class="dark-bg">
         <form>
-            <div class="container">    
+            <div class="container">
+                <div class="logo-left" alt="logo-amnesty"></div>    
                 <div class="title-one">
                     ${localizeContent(state, 'title')}
                 </div>
+                <div class="logo-right" alt="logo"></div>   
                 <div class="description-one">
                     ${localizeContent(state, 'description')}
                 </div>
@@ -3609,9 +3615,11 @@ let countryView = (state, emit) => {
     <body class="dark-bg">
         <form>
             <div class="container">
+                <div class="logo-left" alt="logo-amnesty"></div>   
                 <div class="title">
                     ${localizeContent(state, 'title')}
                 </div>
+                <div class="logo-right" alt="logo"></div>   
                     <div class="label-one">
                         ${localizeContent(state, 'questionCountry')}
                     </div>
@@ -3673,9 +3681,11 @@ let nameView = (state, emit) => {
     <body class="dark-bg">
         <form>
             <div class="container">
+                <div class="logo-left" alt="logo-amnesty"></div>   
                 <div class="title">
                     ${localizeContent(state, 'title')}
                 </div>
+                <div class="logo-right" alt="logo"></div>   
                 <div class="row">
                     <div class="field">
                         <div class="label-one">${localizeContent(state, 'questionName')}</div>
@@ -3708,16 +3718,15 @@ let termsView = (state, emit) => {
 
 
     let setTerms = (e) => {
-        state.data.terms = e.target.checked;
-        state.validated = !state.validated;
+        emit('setTerms', e.target.getAttribute('id'));
         emit('validateTerms');
     }
 
     let errorTerms = () => {
         if (state.validationError.terms ) {
-            return 'visibility: visible';
+            return 'visibility: hidden';
         } else {
-           return 'visibility: hidden';
+           return 'visibility: visible';
         }
     }
 
@@ -3730,7 +3739,7 @@ let termsView = (state, emit) => {
             body: JSON.stringify(state.data)
         }).then((r) => r.json())
         .then((res) => {
-            emit('validateTerms');
+            emit('pushState', '/finished');
         })
         .catch((err) => {
             console.log('error', err);
@@ -3742,18 +3751,20 @@ let termsView = (state, emit) => {
     <body class="dark-bg">
         <form>
             <div class="container">
+                <div class="logo-left" alt="logo-amnesty"></div>   
                 <div class="title">
                     ${localizeContent(state, 'title')}
                 </div>
+                <div class="logo-right" alt="logo"></div>   
                 <div class="row">
                     <div class="label-one">SIGN FOR THE CASES</div>
                     <div class="toggle">
                         <input
-                            id="toggle-1"
+                            id="toggle-one"
                             type="checkbox"      
                             checked=${state.data.terms} 
                             onchange=${setTerms}>
-                        <label for="toggle-1"></label>
+                        <label for="toggle-one"></label>
                     </div>
                     <div class="toggle-description">
                         ${localizeContent(state, 'toggleDescription')}
@@ -3780,16 +3791,18 @@ let termsView = (state, emit) => {
 
 let finishedView = (state, emit) => {
     let onStartOver = () => {
-        emit('reset')
+        emit('reset') 
         emit('pushState', '/');
     }
     
     return html`
     <body>
         <div class="container">
+            <div class="logo-left" alt="logo-amnesty"></div>  
             <div class="success-title">
                 ${localizeContent(state, 'successTitle').replace(':name', state.data.name)}
             </div>
+            <div class="logo-right" alt="logo"></div>   
             <div class="success-description">
                 ${localizeContent(state, 'successDescription')}
             </div>
