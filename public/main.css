@@ -9,12 +9,12 @@
     --grey-lightest: #F5F5F5;
     --white: #FFFFFF;
     --yellow: #FFF84E;
-    --green: #4BD964;
+    --yellow-transparent: rgb(255, 248, 78, 0.1);
     --font-body: 20px;
     --font-body-line-height: 26px;
     --font-small: 18px;
-    --font-small-end: 22px;
-    --font-small-line-height: 24px;
+    --font-small-end: 20px;
+    --font-small-line-height: 22px;
     --font-tiny: 12px;
     --font-tiny-line-height: 18px;
     --font-big: 22px;
@@ -52,13 +52,13 @@ input[type=text] {
     color: var(--grey);
     background: none;
     outline: none;
-    border: none;
-    border-radius: 0;
+    border-radius: 7px;
     border-bottom: solid 1px var(--grey);
     height: 40px;
-    width: 90%;
-    padding: 0;
+    width: 100%;
     margin-bottom: 6px;
+    padding: 10px 0px;
+    
 }
 .dark-bg {
     background: var(--black);
@@ -106,7 +106,7 @@ input[type=text] {
     line-height: var(--font-huge-line-height);
     font-weight: bold;
     color: var(--grey-dark-plus);
-    margin-top: 130px;
+    margin-top: 10%;
     margin-bottom: 30px;
     text-align: center;
     width: 590px;
@@ -143,13 +143,14 @@ input[type=text] {
     font-size: var(--font-small-end);
     line-height: 20px;
     color: var(--grey-dark);
+    
 }
 
 .success-share strong {
     color: var(--black);
 }
 
-.label {
+.label-one {
     font-family: 'Amnesty Trade Gothic Cn';
     text-transform: uppercase;
     color: var(--grey-medium);
@@ -161,29 +162,28 @@ input[type=text] {
 }
 .label-country {
     font-family: 'Amnesty Trade Gothic Cn';
-    color: var(--grey-medium);
+    color: var(--red-medium);
     align-self: flex-start;
 }
 
-.label-names {
+.label-name {
     font-family: 'Amnesty Trade Gothic Cn';
-    color: var(--grey-medium);
+    color: var(--red-medium);
     align-self: flex-start;
 }
 
-.field,
+
 .selectable {
+    height: 55px;
+    width: 10px;
+    border: solid 1px var(--grey-dark);
+    margin-bottom: 6px;
+    border-radius: 7px;
+    margin-right: 10px;
     flex-grow: 1;
 }
 
-.selectable {
-    height: 50px;
-    width: 10px;
-    border: solid 1px var(--grey-medium);
-    margin-bottom: 6px;
-    border-radius: 7px;
 
-}
 .selectable .text {
     display: flex;
     align-items: center;
@@ -200,27 +200,24 @@ input[type=text] {
 .selectable[selected] {
     background: var(--yellow);
     color: var(--grey-dark);
+
 }
 .selectable[selected] .text {
     color: var(--grey-dark);
 }
 
-.selectable:first-child {
-    border-right: none;
-}
-
 .field {
     margin-bottom: 35px;
+    flex-grow: 1;
 }
 
 .toggle {
     display: inline-block;
     font-size: 16px;
     margin-right: 21px;
-    margin-top: 25%;
     flex-shrink: 1;
     outline: none;
-    margin-left: -18%;
+
 }
 .toggle-description {
     font-size: var(--font-small);
@@ -260,7 +257,7 @@ input[type=text] {
     color: var(--black);
     border-radius: 7px;
     padding: 20px 4px;
-    margin-top: 8%;
+    margin-top: 7%;
     margin-bottom: 36px;
     text-decoration: none;
     width: 350px;
@@ -279,7 +276,7 @@ input[type=text] {
     padding: 10px 60px;
     margin-top: 10px;
     margin-bottom: 36px;
-    margin-left: 85%;
+    margin-left: 82%;
     text-decoration: none;
         
 }
@@ -302,7 +299,8 @@ input[type=text] {
         
 }
 .call-to-action:disabled {
-    background: var(--grey-dark);
+    background: var(--yellow);
+    opacity: 0.5;
 }
 
 .disclaimer {
