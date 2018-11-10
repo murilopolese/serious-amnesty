@@ -3759,16 +3759,17 @@ let termsView = (state, emit) => {
                 <div class="title">
                     ${localizeContent(state, 'title')}
                 </div>
-                <div class="logo-right" alt="logo"></div>   
+                <div class="logo-right" alt="logo"></div>
+                <div class="label-one">SIGN FOR THE CASES</div>   
                 <div class="row">
-                    <div class="label-one">SIGN FOR THE CASES</div>
+                    
                     <div class="toggle">
                         <input
-                            id="toggle-one"
+                            id="toggle"
                             type="checkbox"      
                             checked=${state.data.terms} 
                             onchange=${setTerms}>
-                        <label for="toggle-one"></label>
+                        <label for="toggle"></label>
                     </div>
                     <div class="toggle-description">
                         ${localizeContent(state, 'toggleDescription')}

@@ -4,11 +4,9 @@ input[type="checkbox"] {
 input[type="checkbox"]:checked + label {
   background: rgb(255, 248, 78, 0.1) ;
   border-color: #FFF84E;
-  
 }
 input[type="checkbox"]:checked + label:after {
   transform: scale(.9);
-  
 }
 label {
   display: block;
@@ -23,7 +21,6 @@ label {
   cursor: pointer;
   transition: 0.2s;
 }
-
 label:after {
   content: '';
   display: block;
