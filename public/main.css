@@ -42,14 +42,15 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 input[type=text] {
+
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-
     font-family: 'Amnesty Trade Gothic';
     font-size: var(--font-big);
     line-height: var(--font-big-line-height);
     color: var(--grey);
+    text-indent: 15px;
     background: none;
     outline: none;
     border-radius: 7px;
@@ -58,8 +59,14 @@ input[type=text] {
     width: 100%;
     margin-bottom: 6px;
     padding: 10px 0px;
+
     
+    background-image: url("/img/type.svg");
+    background-position: 35%;
+    background-repeat: no-repeat;
+    background-size: 70px;
 }
+
 .dark-bg {
     background: var(--black);
 }

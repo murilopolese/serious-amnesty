@@ -3468,7 +3468,7 @@ let content = {
         successShareDescription: 'Help us collect more signatures by sharing a photo using ',
         questionCountry: 'What\'s your country?',
         questionName: 'What\'s your name',
-        holder: 'Tap here to start typing',
+        holder: 'Tap here to start typing' ,
         pleaseCountry: 'Please select your country',
         pleaseName: 'Please type your name',
         pleaseSign: 'Please sign the cases',
@@ -3655,7 +3655,7 @@ let nameView = (state, emit) => {
         }
     }
     let setName = (e) => {
-        emit('setName', e.target.getAttribute('name'));
+        emit('setName', e.target.value);
         emit('validateName');
     }
     
@@ -3682,11 +3682,10 @@ let nameView = (state, emit) => {
                         <div class="input">
                             <input
                                 type="text"
-                                placeholder=${localizeContent(state, 'holder')}
+                                placeholder=${localizeContent(state, 'holder')} 
                                 onkeyup=${setName}
                                 value=${state.data.name}>
                         </div>
-                        
                     </div>
                 </div>
                 <div class="label-name" style="${errorName()}">
