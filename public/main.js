@@ -5,7 +5,8 @@ let html = require('choo/html'),
 let content = {
     international: {
         title: 'LIGHT UP THE DARK',
-        description: 'Bring hope and justice to people who suffer human rights violations.\n Light up the dark by having your signature light up the flame in the projection',
+        description: 'Bring hope and justice to people who suffer human rights violations.',
+        descriptionAfter: 'Light up the dark by having your signature light up the flame in the projection.',
         toggleDescription: 'I want to sign 10 urgent cases of individuals who suffer human rights violations',
         callToAction: 'SIGN THE CASES',
         disclaimer: 'No other personal information but your name will accompany the letter to the appropriate government.',
@@ -128,6 +129,9 @@ let mainView = (state, emit) => {
                 <div class="description-one">
                     ${localizeContent(state, 'description')}
                 </div>
+                <div class="description-one">
+                    ${localizeContent(state, 'descriptionAfter')}
+                </div>
                 <a class="start-one" onclick=${onStart}>
                     Start
                 </a>
@@ -243,13 +247,13 @@ let nameView = (state, emit) => {
                                 onkeyup=${setName}
                                 value=${state.data.name}>
                         </div>
+                        <div class="label-name" style="${errorName()}">
+                            ${localizeContent(state, 'pleaseName')}
+                        </div> 
                     </div>
                 </div>
-                <div class="label-name" style="${errorName()}">
-                    ${localizeContent(state, 'pleaseName')}
-                </div> 
                 <a
-                    class="next-one"
+                    class="next-two"
                     onclick=${clickName}>
                     Next
                 </a>

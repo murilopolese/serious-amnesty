@@ -31,18 +31,15 @@ body {
     min-width: 100vw;
     min-height: 100vh;
     margin: 0;
-
     font-family: 'Amnesty Trade Gothic';
     font-size: var(--font-body);
     line-height: var(--font-body-line-height);
     font-weight: 300;
     color: var(--grey);
-
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
 input[type=text] {
-
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -59,14 +56,11 @@ input[type=text] {
     width: 100%;
     margin-bottom: 6px;
     padding: 10px 0px;
-
-
     background-image: url("/img/type.svg");
     background-position: 35%;
     background-repeat: no-repeat;
     background-size: 70px;
 }
-
 .dark-bg {
     background: var(--black);
 }
@@ -80,9 +74,7 @@ input[type=text] {
 .row {
     width: 100%;
     display: inline-flex;
-    flex-direction: row;
-
-    
+    flex-direction: row;  
 }
 .title {
     font-family: 'Amnesty Trade Gothic Cn';
@@ -119,20 +111,20 @@ input[type=text] {
     width: 590px;
     letter-spacing: -2px;
 }
-
-.description {
+.description-one {
     color: var(--grey-dark);
     text-align: center;
-    width: 670px;
+    width: 750px;
     margin-bottom: 36px;
+    font-size: var(--font-small-line-height);
 }
-.descriptio-one {
+.description-one {
     color: var(--grey-dark);
     text-align: center;
-    width: 670px;
-    margin-bottom: 306px;
+    width: 750px;
+    margin-bottom: 0px;
+    font-size: var(--font-small-line-height);
 }
-
 .success-description {
     color: var(--grey-medium);
     text-align: center;
@@ -141,7 +133,6 @@ input[type=text] {
     margin-bottom: 56px; 
     font-size: var(--font-small-line-height);
 }
-
 .success-share {
     width: 820px;
     background: var(--grey-lightest);
@@ -149,14 +140,11 @@ input[type=text] {
     text-align: center;
     font-size: var(--font-small-end);
     line-height: 20px;
-    color: var(--grey-dark);
-    
+    color: var(--grey-dark); 
 }
-
 .success-share strong {
     color: var(--black);
 }
-
 .label-one {
     font-family: 'Amnesty Trade Gothic Cn';
     text-transform: uppercase;
@@ -172,14 +160,11 @@ input[type=text] {
     color: var(--red-medium);
     align-self: flex-start;
 }
-
 .label-name {
     font-family: 'Amnesty Trade Gothic Cn';
     color: var(--red-medium);
     align-self: flex-start;
 }
-
-
 .selectable {
     height: 55px;
     width: 10px;
@@ -189,8 +174,6 @@ input[type=text] {
     margin-right: 10px;
     flex-grow: 1;
 }
-
-
 .selectable .text {
     display: flex;
     align-items: center;
@@ -203,28 +186,23 @@ input[type=text] {
     color: var(--grey-medium);
     opacity: 0.75;
 }
-
 .selectable[selected] {
     background: var(--yellow);
     color: var(--grey-dark);
-
 }
 .selectable[selected] .text {
     color: var(--grey-dark);
 }
-
 .field {
     margin-bottom: 35px;
     flex-grow: 1;
 }
-
 .toggle {
     display: inline-block;
     font-size: 16px;
     margin-right: 21px;
     flex-shrink: 1;
     outline: none;
-
 }
 .toggle-description {
     font-size: var(--font-small);
@@ -233,9 +211,7 @@ input[type=text] {
     align-self: flex-end;
     flex-grow: 1;
     padding-bottom: 2px;
-    
 }
-
 .start-one {
     background: var(--yellow);
     border: none;
@@ -284,10 +260,24 @@ input[type=text] {
     margin-top: 10px;
     margin-bottom: 36px;
     margin-left: 82%;
-    text-decoration: none;
-        
+    text-decoration: none;        
 }
-
+.next-two {
+    background: var(--yellow);
+    border: none;
+    outline: none;
+    font-family: 'Amnesty Trade Gothic Cn';
+    font-size: var(--font-size-big);
+    font-weight: bold;
+    text-transform: uppercase;
+    color: var(--black);
+    border-radius: 7px;
+    padding: 10px 60px;
+    margin-top: -31px;
+    margin-bottom: 36px;
+    margin-left: 82%;
+    text-decoration: none;      
+}
 .call-to-action {
     background: var(--yellow);
     border: none;
@@ -302,14 +292,12 @@ input[type=text] {
     margin-top: 8%;
     margin-bottom: 36px;
     width: 350px;
-    text-decoration: none;
-        
+    text-decoration: none;       
 }
 .call-to-action:disabled {
     background: var(--yellow);
     opacity: 0.5;
 }
-
 .disclaimer {
     font-size: var(--font-tiny);
     line-height: var(--font-tiny-line-height);
@@ -317,20 +305,17 @@ input[type=text] {
     text-align: center;
     width: 286px;
 }
-
 .logo-left {
     content:url(/img/amnesty_1.svg);
     position: fixed;
     top: 45px;
-    left: 45px;
+    left: 30px;
     width: 200px;
 }
-
 .logo-right {
     content:url(/img/bref_yellow.svg);
     position: fixed;
     top: 45px;
     right: 45px;
     width: 140px;
-
 }
