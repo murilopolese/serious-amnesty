@@ -3468,7 +3468,7 @@ let content = {
         successShareTitle: 'Wait, wait, wait, you’re not done yet...',
         successShareDescription: 'Help us collect more signatures by sharing a photo using ',
         questionCountry: 'What\'s your country?',
-        questionName: 'What\'s your name',
+        questionName: 'What\'s your name?',
         holder: 'Tap here to start typing' ,
         pleaseCountry: 'Please select your country',
         pleaseName: 'Please type your name',
@@ -3692,7 +3692,7 @@ let nameView = (state, emit) => {
                 <div class="logo-right" alt="logo"></div>   
                 <div class="row">
                     <div class="field">
-                        <div class="label-one">${localizeContent(state, 'questionName')}</div>
+                        <div class="label-two">${localizeContent(state, 'questionName')}</div>
                         <div class="input">
                             <input
                                 type="text"

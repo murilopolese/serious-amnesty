@@ -115,13 +115,6 @@ input[type=text] {
     color: var(--grey-dark);
     text-align: center;
     width: 750px;
-    margin-bottom: 36px;
-    font-size: var(--font-small-line-height);
-}
-.description-one {
-    color: var(--grey-dark);
-    text-align: center;
-    width: 750px;
     margin-bottom: 0px;
     font-size: var(--font-small-line-height);
 }
@@ -146,6 +139,16 @@ input[type=text] {
     color: var(--black);
 }
 .label-one {
+    font-family: 'Amnesty Trade Gothic Cn';
+    text-transform: uppercase;
+    color: var(--grey-medium);
+    font-weight: bold;
+    align-self: flex-start;
+    margin-bottom: 17px;
+    margin-top: 20%;
+    font-size: var(--font-big);
+}
+.label-two {
     font-family: 'Amnesty Trade Gothic Cn';
     text-transform: uppercase;
     color: var(--grey-medium);
@@ -320,3 +323,333 @@ input[type=text] {
     right: 45px;
     width: 140px;
 }
+
+/* Iphone 6/7/8 */
+
+@media (min-width: 360px) and (max-width: 667px) {
+    :root {
+        --font-body: 20px;
+        --font-body-line-height: 26px;
+        --font-small: 18px;
+        --font-small-end: 20px;
+        --font-small-line-height: 16px;
+        --font-tiny: 12px;
+        --font-tiny-line-height: 18px;
+        --font-big: 18px;
+        --font-medium: 16px;
+        --font-big-line-height: 34px;
+        --font-huge: 30px;
+        --font-huge-title: 40px;
+        --font-huge-end: 75px;
+        --font-huge-line-height: 38px;
+    }
+    body {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        min-width: 100vw;
+        min-height: 100vh;
+        margin: 0;
+        font-family: 'Amnesty Trade Gothic';
+        font-size: var(--font-body);
+        line-height: var(--font-body-line-height);
+        font-weight: 300;
+        color: var(--grey);
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+    input[type=text] {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        font-family: 'Amnesty Trade Gothic';
+        font-size: var(--font-big);
+        line-height: var(--font-big-line-height);
+        color: var(--grey);
+        text-indent: 15px;
+        background: none;
+        outline: none;
+        border-radius: 7px;
+        border: solid 0.5px var(--grey);
+        height: 38px;
+        width: 97%;
+        margin-top: 7px;
+        margin-bottom: 6px;
+        padding: 10px 0px;
+        background-image: url("/img/type.svg");
+        background-position: 90%;
+        background-repeat: no-repeat;
+        background-size: 70px;
+    }
+    .dark-bg {
+        background: var(--black);
+    }
+    .container {
+        width: 375px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 0;
+    }
+    .row {
+        width: 90%;
+        display: inline-flex;
+        flex-direction: row;  
+    }
+    .title {
+        font-family: 'Amnesty Trade Gothic Cn';
+        font-size: var(--font-huge);
+        line-height: var(--font-huge-line-height);
+        text-transform: uppercase;
+        font-weight: bold;
+        color: var(--grey-light);
+        margin-top: 35%;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+    .title-one {
+        font-family: 'Amnesty Trade Gothic Cn';
+        font-size: var(--font-huge-title);
+        line-height: var(--font-huge-line-height);
+        text-transform: uppercase;
+        font-weight: bold;
+        color: var(--grey-light);
+        margin-top: 42%;
+        margin-bottom: 10px;
+        text-align: center;
+        padding-bottom: 3%;
+    }
+    .success-title {
+        font-family: 'Amnesty Trade Gothic Cn';
+        font-size: var(--font-huge-end);
+        line-height: var(--font-huge-line-height);
+        font-weight: bold;
+        color: var(--grey-dark-plus);
+        margin-top: 14%;
+        margin-bottom: 30px;
+        text-align: center;
+        width: 590px;
+        letter-spacing: -2px;
+    }
+
+    .description-one {
+        color: var(--grey-dark);
+        text-align: center;
+        width: 320px;
+        margin-bottom: 0px;
+        font-size: var(--font-small-line-height);
+    }
+    .success-description {
+        color: var(--grey-medium);
+        text-align: center;
+        width: 600px;
+        margin-top: -10px; 
+        margin-bottom: 56px; 
+        font-size: var(--font-small-line-height);
+    }
+    .success-share {
+        width: 820px;
+        background: var(--grey-lightest);
+        padding: 12px 12px;
+        text-align: center;
+        font-size: var(--font-small-end);
+        line-height: 20px;
+        color: var(--grey-dark); 
+    }
+    .success-share strong {
+        color: var(--black);
+    }
+    .label-one {
+        font-family: 'Amnesty Trade Gothic Cn';
+        text-transform: uppercase;
+        color: var(--grey-medium);
+        font-weight: bold;
+        align-self: flex-start;
+        margin-bottom: 10px;
+        margin-top: 18%;
+        margin-left: 5%;
+        font-size: var(--font-big);
+    }
+    .label-two {
+        font-family: 'Amnesty Trade Gothic Cn';
+        text-transform: uppercase;
+        color: var(--grey-medium);
+        font-weight: bold;
+        align-self: flex-start;
+        margin-bottom: 10px;
+        margin-top: 20%;
+        font-size: var(--font-big);
+     
+    }
+    .label-country {
+        font-family: 'Amnesty Trade Gothic Cn';
+        color: var(--red-medium);
+        align-self: flex-start;
+        margin-left: 5%;
+        font-size: var(--font-medium);
+    }
+    .label-name {
+        font-family: 'Amnesty Trade Gothic Cn';
+        color: var(--red-medium);
+        align-self: flex-start;
+        margin-left: 5%;
+        font-size: var(--font-medium);
+    }
+    .selectable {
+        height: 55px;
+        width: 10px;
+        border: solid 1px var(--grey-dark);
+        margin-top: 8px;
+        margin-bottom: 6px;
+        border-radius: 7px;
+        margin-right: 10px;
+        flex-grow: 1;
+    }
+    .selectable .text {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        font-family: 'Amnesty Trade Gothic Cn';
+        font-weight: bold;
+        text-transform: uppercase;
+        color: var(--grey-medium);
+        opacity: 0.75;
+    }
+    .selectable[selected] {
+        background: var(--yellow);
+        color: var(--grey-dark);
+    }
+    .selectable[selected] .text {
+        color: var(--grey-dark);
+    }
+    .field {
+        margin-bottom: 35px;
+        flex-grow: 1;
+    }
+    .toggle {
+        display: inline-block;
+        font-size: 16px;
+        margin-right: 21px;
+        flex-shrink: 1;
+        outline: none;
+    
+    }
+    .toggle-description {
+        font-size: var(--font-small);
+        line-height: var(--font-small-line-height);
+        color: var(--grey-medium);
+        align-self: flex-end;
+        flex-grow: 1;
+        padding-bottom: 2px;
+    }
+    .start-one {
+        background: var(--yellow);
+        border: none;
+        outline: none;
+        font-family: 'Amnesty Trade Gothic Cn';
+        font-size: var(--font-size-big);
+        font-weight: bold;
+        text-transform: uppercase;
+        color: var(--black);
+        border-radius: 7px;
+        padding: 15px 34px;
+        margin-top: 12%;
+        margin-bottom: 36px;
+        text-decoration: none;
+        width: 100px;
+        text-align: center;
+    }
+    .start-end {
+        background: var(--yellow);
+        border: none;
+        outline: none;
+        font-family: 'Amnesty Trade Gothic Cn';
+        font-size: var(--font-size-big);
+        font-weight: bold;
+        text-transform: uppercase;
+        color: var(--black);
+        border-radius: 7px;
+        padding: 20px 4px;
+        margin-top: 5%;
+        margin-bottom: 36px;
+        text-decoration: none;
+        width: 350px;
+        text-align: center;
+    }
+    .next-one {
+        background: var(--yellow);
+        border: none;
+        outline: none;
+        font-family: 'Amnesty Trade Gothic Cn';
+        font-size: var(--font-size-big);
+        font-weight: bold;
+        text-transform: uppercase;
+        color: var(--black);
+        border-radius: 7px;
+        padding: 10px 40px;
+        margin-top: 6px;
+        margin-bottom: 36px;
+        margin-left: 55%;
+        text-decoration: none;        
+    }
+    .next-two {
+        background: var(--yellow);
+        border: none;
+        outline: none;
+        font-family: 'Amnesty Trade Gothic Cn';
+        font-size: var(--font-size-big);
+        font-weight: bold;
+        text-transform: uppercase;
+        color: var(--black);
+        border-radius: 7px;
+        padding: 10px 40px;
+        margin-top: -31px;
+        margin-bottom: 36px;
+        margin-left: 55%;
+        text-decoration: none;      
+    }
+    .call-to-action {
+        background: var(--yellow);
+        border: none;
+        outline: none;
+        font-family: 'Amnesty Trade Gothic Cn';
+        font-size: var(--font-size-big);
+        font-weight: bold;
+        text-transform: uppercase;
+        color: var(--black);
+        border-radius: 7px;
+        padding: 20px 20px;
+        margin-top: 8%;
+        margin-bottom: 36px;
+        width: 350px;
+        text-decoration: none;       
+    }
+    .call-to-action:disabled {
+        background: var(--yellow);
+        opacity: 0.5;
+    }
+    .disclaimer {
+        font-size: var(--font-tiny);
+        line-height: var(--font-tiny-line-height);
+        color: var(--grey-medium);
+        text-align: center;
+        width: 286px;
+    }
+    .logo-left {
+        content:url(/img/amnesty_1.svg);
+        position: fixed;
+        top: 35px;
+        left: 20px;
+        width: 120px;
+    }
+    .logo-right {
+        content:url(/img/bref_yellow.svg);
+        position: fixed;
+        top: 35px;
+        right: 30px;
+        width: 80px;
+    }
+}
+
