@@ -3639,7 +3639,8 @@ module.exports = (state, emit) => {
     }
     let setCountry = (e) => {
         let target = e.target;
-        if (target.parentElement.getAttribute('id')) {
+        let parentId = target.parentElement.getAttribute('id')
+        if (parentId === 'iceland' || parentId === 'international') {
             target = target.parentElement;
         }
         emit('setCountry', target.getAttribute('id'));
