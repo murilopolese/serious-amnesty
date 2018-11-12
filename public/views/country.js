@@ -18,7 +18,11 @@ module.exports = (state, emit) => {
         emit('back');
     }
     let setCountry = (e) => {
-        emit('setCountry', e.target.getAttribute('id'));
+        let target = e.target;
+        if (target.parentElement.getAttribute('id')) {
+            target = target.parentElement;
+        }
+        emit('setCountry', target.getAttribute('id'));
         emit('validateCountry');
         emit('render');
     }
