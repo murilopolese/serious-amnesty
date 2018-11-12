@@ -4,6 +4,8 @@ let header = require('./header.js');
 
 module.exports = (state, emit) => {
     emit('showTitle', false);
+    clearTimeout(state.restartInterval);
+
     let next = () => {
         emit('pushState', '/country');
     }

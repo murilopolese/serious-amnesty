@@ -14,7 +14,8 @@ let initialState = {
         step: 0,
         name: '',
         country: '',
-        terms: false
+        terms: false,
+        restartInterval: 0
     },
     validationError: {
         name: false,

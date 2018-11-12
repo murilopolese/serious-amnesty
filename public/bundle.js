@@ -3537,7 +3537,8 @@ let initialState = {
         step: 0,
         name: '',
         country: '',
-        terms: false
+        terms: false,
+        restartInterval: 0
     },
     validationError: {
         name: false,
@@ -3716,11 +3717,15 @@ let header = require('./header.js');
 module.exports = (state, emit) => {
     emit('showTitle', false);
     emit('setProgress', 4);
-
     let reset = () => {
         emit('reset')
         emit('pushState', '/');
-    }
+    };
+
+    state.restartInterval = setTimeout(() => {
+        reset();
+    }, 5000);
+
     return html`
 <body class="light-bg">
     ${header(state, emit)}
@@ -3867,6 +3872,8 @@ let header = require('./header.js');
 
 module.exports = (state, emit) => {
     emit('showTitle', false);
+    clearTimeout(state.restartInterval);
+
     let next = () => {
         emit('pushState', '/country');
     }

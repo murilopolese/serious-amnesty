@@ -5,11 +5,15 @@ let header = require('./header.js');
 module.exports = (state, emit) => {
     emit('showTitle', false);
     emit('setProgress', 4);
-
     let reset = () => {
         emit('reset')
         emit('pushState', '/');
-    }
+    };
+
+    state.restartInterval = setTimeout(() => {
+        reset();
+    }, 5000);
+
     return html`
 <body class="light-bg">
     ${header(state, emit)}
