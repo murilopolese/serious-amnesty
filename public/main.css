@@ -8,215 +8,343 @@
     --white: #FFFFFF;
     --yellow: #FFF84E;
     --green: #4BD964;
+    --red: #F43E35;
+    --font-family: 'Amnesty Trade Gothic';
+    --font-family-condensed: 'Amnesty Trade Gothic Cn';
     --font-body: 20px;
-    --font-body-line-height: 26px;
+    --font-body-line-height: 22px;
     --font-small: 18px;
     --font-small-line-height: 24px;
     --font-tiny: 12px;
     --font-tiny-line-height: 18px;
     --font-big: 22px;
     --font-big-line-height: 34px;
-    --font-huge: 64px;
-    --font-huge-line-height: 78px;
+    --font-huge: 68px;
+    --font-huge-line-height: 82px;
 }
+
+/* GENERAL RULES */
 body {
     display: flex;
-    flex-direction: row;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
     min-width: 100vw;
     min-height: 100vh;
     margin: 0;
-
-    font-family: 'Amnesty Trade Gothic';
+    font-family: var(--font-family);
     font-size: var(--font-body);
     line-height: var(--font-body-line-height);
     font-weight: 300;
-    color: var(--grey);
-
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overflow-y: scroll;
 }
-input[type=text] {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
 
-    font-family: 'Amnesty Trade Gothic';
-    font-size: var(--font-big);
-    line-height: var(--font-big-line-height);
-    color: var(--grey);
-    background: none;
-    outline: none;
-    border: none;
-    border-radius: 0;
-    border-bottom: solid 1px var(--grey);
-    height: 40px;
-    width: 90%;
-    padding: 0;
+img {
+    max-width: 100%;
 }
+
+
 .dark-bg {
     background: var(--black);
+    color: var(--grey);
 }
-.container {
-    width: 840px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.light-bg {
+    background: var(--white);
+    color: var(--black);
 }
-.row {
-    width: 100%;
+
+/* HEADER */
+.header {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
+    width: calc(100% - 76px);
+    padding: 45px 38px;
 }
-.title {
-    font-family: 'Amnesty Trade Gothic Cn';
-    font-size: var(--font-huge);
-    line-height: var(--font-huge-line-height);
-    text-transform: uppercase;
+.header .amnesty-logo {
+    width: 170px;
+    height: 70px;
+}
+.header .bref-logo {
+    width: 110px;
+    height: 70px;
+}
+.header .title {
+    font-size: 45px;
+    line-height: 64px;
+    font-family: var(--font-family-condensed);
     font-weight: bold;
     color: var(--grey-light);
-    margin-top: 47px;
-    margin-bottom: 10px;
+}
+
+/* CONTENT */
+.content {
+    width: 720px;
+}
+
+/* MARGIN HELPERS */
+.mb-20 {
+    margin-bottom: 20px;
+}
+.mb-40 {
+    margin-bottom: 40px;
+}
+.mb-60 {
+    margin-bottom: 60px;
+}
+.mb-80 {
+    margin-bottom: 80px;
+}
+.mr-20 {
+    margin-right: 20px;
+}
+
+/* ALIGNMENT HELPERS */
+.center {
+    margin: 0 auto;
+}
+.text-center {
     text-align: center;
 }
-.success-title {
-    font-family: 'Amnesty Trade Gothic Cn';
+
+/* TEXT HELPERS */
+.text-dark-grey {
+    color: var(--grey-dark);
+}
+.text-small {
+    font-family: var(--font-family);
+    font-size: var(--font-small);
+    line-height: var(--font-small-line-height);
+    font-weight: 300;
+    text-transform: none;
+}
+.text-big {
+    font-family: var(--font-family);
+    font-size: var(--font-big);
+    line-height: var(--font-big-line-height);
+    font-weight: 300;
+    text-transform: none;
+}
+.text-body {
+    font-family: var(--font-family);
+    font-size: var(--font-body);
+    line-height: var(--font-body-line-height);
+    font-weight: 300;
+    text-transform: none;
+}
+.text-huge {
+    font-family: var(--font-family-condensed);
     font-size: var(--font-huge);
     line-height: var(--font-huge-line-height);
     font-weight: bold;
-    color: var(--black);
-    margin-top: 140px;
-    margin-bottom: 30px;
-    text-align: center;
-    width: 590px;
-    letter-spacing: -2px;
 }
-
-.description {
-    color: var(--grey-dark);
-    text-align: center;
-    width: 670px;
-    margin-bottom: 36px;
+.dark-bg .text-huge {
+    color: var(--grey-light);
 }
-
-.success-description {
-    color: var(--grey-medium);
-    text-align: center;
-    width: 600px;
-    margin-bottom: 36px;
-}
-
-.success-share {
-    width: 680px;
-    background: var(--grey-lightest);
-    padding: 12px 12px;
-    text-align: center;
-    font-size: var(--font-small);
-    line-height: 20px;
-    color: var(--grey-dark);
-}
-
-.success-share strong {
-    color: var(--black);
-}
-
-.label {
-    font-family: 'Amnesty Trade Gothic Cn';
-    text-transform: uppercase;
-    color: var(--grey-medium);
+.text-question {
+    font-family: var(--font-family-condensed);
+    font-size: var(--font-big);
+    line-height: var(--font-big-line-height);
     font-weight: bold;
-    align-self: flex-start;
-    margin-bottom: 17px;
-}
-.label.no-margin {
-    margin-bottom: 0px;
-}
-
-.field,
-.selectable {
-    flex-grow: 1;
-}
-
-.selectable {
-    height: 50px;
-    border: solid 1px var(--grey-medium);
-    margin-bottom: 23px;
-}
-.selectable .text {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-    font-family: 'Amnesty Trade Gothic Cn';
-    font-weight: bold;
+    color: var(--grey-medium);
     text-transform: uppercase;
-    color: var(--grey-medium);
-    opacity: 0.75;
 }
 
-.selectable[selected] {
-    background: var(--grey-light);
-    color: var(--grey-dark);
-}
-.selectable[selected] .text {
-    color: var(--grey-dark);
-}
-
-.selectable:first-child {
-    border-right: none;
-}
-
-.field {
-    margin-bottom: 35px;
-}
-
-.toggle {
-    display: inline-block;
-    font-size: 16px;
-    margin-right: 21px;
-    flex-shrink: 1;
-    outline: none;
-}
-.toggle-description {
-    font-size: var(--font-small);
-    line-height: var(--font-small-line-height);
-    color: var(--grey-medium);
-    align-self: flex-end;
-    flex-grow: 1;
-    padding-bottom: 2px;
-}
-
-.start-over,
-.call-to-action {
+/* BUTTON STYLES */
+.btn {
+    font-family: var(--font-family-condensed);
     background: var(--yellow);
-    border: none;
-    outline: none;
-    font-family: 'Amnesty Trade Gothic Cn';
-    font-size: var(--font-size-big);
-    font-weight: bold;
-    text-transform: uppercase;
-    color: var(--black);
     border-radius: 4px;
-    padding: 20px 44px;
-    margin-top: 46px;
-    margin-bottom: 36px;
-    text-decoration: none;
-}
-.call-to-action:disabled {
-    background: var(--grey-dark);
-}
-
-.disclaimer {
-    font-size: var(--font-tiny);
-    line-height: var(--font-tiny-line-height);
-    color: var(--grey-medium);
+    color: var(--black);
+    text-transform: uppercase;
+    font-weight: bold;
     text-align: center;
-    width: 286px;
+    font-size: var(--font-body);
+}
+.btn-big {
+    padding: 20px 0;
+    max-width: 440px;
+    font-size: var(--font-big);
+}
+.btn-next {
+    width: 150px;
+    padding: 10px;
 }
 
-.logo {
+/* INPUT STYLES */
+.input {
+    position: relative;
+    font-family: var(--font-family-condensed);
+    border-radius: 4px;
+    text-transform: uppercase;
+    font-weight: bold;
+    border: 1px solid var(--grey-medium);
+    color: var(--grey-dark);
+    background: none;
+}
+.input.selected {
+    border-color: var(--yellow);
+    color: var(--white);
+    background: #2D2C1B;
+}
+
+.input.input-button {
+    width: calc(49% - 30px);
+    text-align: center;
+    padding: 10px 15px;
+    font-size: var(--font-big);
+    line-height: var(--font-big-line-height);
+}
+
+.input .check {
+    display: none;
+    width: 24px;
     position: absolute;
-    bottom: 45px;
-    right: 90px;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-12px);
+}
+
+.input.input-button .label {
+    font-size: var(--font-big);
+    line-height: calc(var(--font-big) + 4px);
+    border-radius: 4px;
+    border: 1px solid var(--grey-dark);
+    color: var(--grey-dark);
+    position: absolute;
+    left: 15px;
+    width: 30px;
+    height: 30px;
+}
+.input.selected .label {
+    border-color: var(--yellow);
+    color: var(--yellow);
+    background: #2D2C1B;
+}
+.input.selected .check {
+    display: block;
+}
+
+.input.input-text {
+    width: 100%;
+}
+.input.input-text input[type="text"] {
+    background: none;
+    width: calc(100% - 30px);
+    height: calc(100% - 20px);
+    border: none;
+    margin: 0;
+    outline: none;
+    color: var(--white);
+    padding: 10px 15px;
+    font-size: var(--font-big);
+    line-height: var(--font-big);
+    text-transform: uppercase;
+}
+
+.input.input-checkbox {
+    -webkit-appearance: none;
+    outline: none;
+    width: 32px;
+    height: 32px;
+}
+.input.input-checkbox:checked::after {
+    content: '';
+	position: absolute;
+	top: 7px;
+	left: 5px;
+    width: 16px;
+    height: 8px;
+    border-bottom: solid 3px var(--white);
+    border-left: solid 3px var(--white);
+    transform: rotate(-45deg);
+}
+
+.input-label {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+/* BACK BUTTON STYLE */
+.back {
+    color: var(--grey-dark);
+    font-size: var(--font-small);
+    display: inline-block;
+}
+.back-arrow {
+    height: 16px;
+}
+
+/* QUESTIONS + ANSWER STYLES */
+.question,
+.answer {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+.question .col-left,
+.answer .col-left {
+    width: 60px;
+    color: var(--white);
+}
+.answer .col-right {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: calc(100% - 60px);
+}
+.answer .error-msg {
+    opacity: 0;
+    font-size: var(--font-tiny);
+    color: var(--red);
+}
+.answer.error .error-msg {
+    opacity: 1;
+}
+.answer.error .input {
+    border-color: var(--red);
+}
+.arrow {
+    height: 16px;
+    transform: rotateY(180deg);
+    margin: 0 5px;
+}
+
+/* NEXT BUTTON STYLE */
+.next {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+/* PROGRESS STYLE */
+.progress {
+    width: 100%;
+    color: var(--grey-dark);
+    font-size: var(--font-small);
+    text-align: center;
+}
+.steps {
+    display: flex;
+    flex-direction: row;
+    width: 240px;
+    height: 10px;
+}
+.step {
+    width: 33%;
+    border: 1px solid var(--grey-dark);
+}
+.step.active {
+    background: var(--white);
+}
+
+/* FINISHED STYLE */
+.grey-box {
+    background: var(--grey-lightest);
+    width: 100%;
+    padding: 20px;
 }

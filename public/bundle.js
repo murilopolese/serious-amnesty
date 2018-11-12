@@ -1114,7 +1114,7 @@ function hasOwnProperty(obj, prop) {
 }
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./support/isBuffer":3,"_process":28,"inherits":2}],5:[function(require,module,exports){
+},{"./support/isBuffer":3,"_process":30,"inherits":2}],5:[function(require,module,exports){
 var assert = require('assert')
 var LRU = require('nanolru')
 
@@ -1157,10 +1157,13 @@ function newCall (Cls) {
   return new (Cls.bind.apply(Cls, arguments)) // eslint-disable-line
 }
 
-},{"assert":11,"nanolru":19}],6:[function(require,module,exports){
+},{"assert":12,"nanolru":21}],6:[function(require,module,exports){
 module.exports = require('nanohtml')
 
-},{"nanohtml":16}],7:[function(require,module,exports){
+},{"nanohtml":17}],7:[function(require,module,exports){
+module.exports = require('nanohtml/raw')
+
+},{"nanohtml/raw":19}],8:[function(require,module,exports){
 var scrollToAnchor = require('scroll-to-anchor')
 var documentReady = require('document-ready')
 var nanotiming = require('nanotiming')
@@ -1433,7 +1436,7 @@ Choo.prototype._setCache = function (state) {
   }
 }
 
-},{"./component/cache":5,"assert":11,"document-ready":8,"nanobus":12,"nanohref":13,"nanomorph":20,"nanoquery":23,"nanoraf":24,"nanorouter":25,"nanotiming":27,"scroll-to-anchor":30,"xtend":33}],8:[function(require,module,exports){
+},{"./component/cache":5,"assert":12,"document-ready":9,"nanobus":13,"nanohref":14,"nanomorph":22,"nanoquery":25,"nanoraf":26,"nanorouter":27,"nanotiming":29,"scroll-to-anchor":32,"xtend":35}],9:[function(require,module,exports){
 'use strict'
 
 var assert = require('assert')
@@ -1452,7 +1455,7 @@ function ready (callback) {
   })
 }
 
-},{"assert":1}],9:[function(require,module,exports){
+},{"assert":1}],10:[function(require,module,exports){
 module.exports = attributeToProperty
 
 var transform = {
@@ -1473,7 +1476,7 @@ function attributeToProperty (h) {
   }
 }
 
-},{}],10:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 var attrToProp = require('hyperscript-attribute-to-property')
 
 var VAR = 0, TEXT = 1, OPEN = 2, CLOSE = 3, ATTR = 4
@@ -1769,7 +1772,7 @@ var closeRE = RegExp('^(' + [
 ].join('|') + ')(?:[\.#][a-zA-Z0-9\u007F-\uFFFF_:-]+)*$')
 function selfClosing (tag) { return closeRE.test(tag) }
 
-},{"hyperscript-attribute-to-property":9}],11:[function(require,module,exports){
+},{"hyperscript-attribute-to-property":10}],12:[function(require,module,exports){
 assert.notEqual = notEqual
 assert.notOk = notOk
 assert.equal = equal
@@ -1793,7 +1796,7 @@ function assert (t, m) {
   if (!t) throw new Error(m || 'AssertionError')
 }
 
-},{}],12:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 var splice = require('remove-array-items')
 var nanotiming = require('nanotiming')
 var assert = require('assert')
@@ -1957,7 +1960,7 @@ Nanobus.prototype._emit = function (arr, eventName, data, uuid) {
   }
 }
 
-},{"assert":11,"nanotiming":27,"remove-array-items":29}],13:[function(require,module,exports){
+},{"assert":12,"nanotiming":29,"remove-array-items":31}],14:[function(require,module,exports){
 var assert = require('assert')
 
 var safeExternalLink = /(noopener|noreferrer) (noopener|noreferrer)/
@@ -2002,7 +2005,7 @@ function href (cb, root) {
   })
 }
 
-},{"assert":11}],14:[function(require,module,exports){
+},{"assert":12}],15:[function(require,module,exports){
 var trailingNewlineRegex = /\n[\s]+$/
 var leadingNewlineRegex = /^\n[\s]+/
 var trailingSpaceRegex = /[\s]+$/
@@ -2135,7 +2138,7 @@ module.exports = function appendChild (el, childs) {
   }
 }
 
-},{}],15:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 module.exports = [
   'async', 'autofocus', 'autoplay', 'checked', 'controls', 'default',
   'defaultchecked', 'defer', 'disabled', 'formnovalidate', 'hidden',
@@ -2143,7 +2146,7 @@ module.exports = [
   'readonly', 'required', 'reversed', 'selected'
 ]
 
-},{}],16:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 var hyperx = require('hyperx')
 var appendChild = require('./append-child')
 var SVG_TAGS = require('./svg-tags')
@@ -2226,12 +2229,25 @@ module.exports = hyperx(nanoHtmlCreateElement, {comments: true})
 module.exports.default = module.exports
 module.exports.createElement = nanoHtmlCreateElement
 
-},{"./append-child":14,"./bool-props":15,"./direct-props":17,"./svg-tags":18,"hyperx":10}],17:[function(require,module,exports){
+},{"./append-child":15,"./bool-props":16,"./direct-props":18,"./svg-tags":20,"hyperx":11}],18:[function(require,module,exports){
 module.exports = [
   'indeterminate'
 ]
 
-},{}],18:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
+function nanohtmlRawBrowser (tag) {
+  var el = document.createElement('div')
+  el.innerHTML = tag
+  return toArray(el.childNodes)
+}
+
+function toArray (arr) {
+  return Array.isArray(arr) ? arr : [].slice.call(arr)
+}
+
+module.exports = nanohtmlRawBrowser
+
+},{}],20:[function(require,module,exports){
 module.exports = [
   'svg', 'altGlyph', 'altGlyphDef', 'altGlyphItem', 'animate', 'animateColor',
   'animateMotion', 'animateTransform', 'circle', 'clipPath', 'color-profile',
@@ -2249,7 +2265,7 @@ module.exports = [
   'tspan', 'use', 'view', 'vkern'
 ]
 
-},{}],19:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 module.exports = LRU
 
 function LRU (opts) {
@@ -2387,7 +2403,7 @@ LRU.prototype.evict = function () {
   this.remove(this.tail)
 }
 
-},{}],20:[function(require,module,exports){
+},{}],22:[function(require,module,exports){
 var assert = require('assert')
 var morph = require('./lib/morph')
 
@@ -2538,7 +2554,7 @@ function same (a, b) {
   return false
 }
 
-},{"./lib/morph":22,"assert":11}],21:[function(require,module,exports){
+},{"./lib/morph":24,"assert":12}],23:[function(require,module,exports){
 module.exports = [
   // attribute events (can be set with attributes)
   'onclick',
@@ -2582,7 +2598,7 @@ module.exports = [
   'onfocusout'
 ]
 
-},{}],22:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 var events = require('./events')
 var eventsLength = events.length
 
@@ -2748,7 +2764,7 @@ function updateAttribute (newNode, oldNode, name) {
   }
 }
 
-},{"./events":21}],23:[function(require,module,exports){
+},{"./events":23}],25:[function(require,module,exports){
 var reg = /([^?=&]+)(=([^&]*))?/g
 var assert = require('assert')
 
@@ -2765,7 +2781,7 @@ function qs (url) {
   return obj
 }
 
-},{"assert":11}],24:[function(require,module,exports){
+},{"assert":12}],26:[function(require,module,exports){
 'use strict'
 
 var assert = require('assert')
@@ -2802,7 +2818,7 @@ function nanoraf (render, raf) {
   }
 }
 
-},{"assert":11}],25:[function(require,module,exports){
+},{"assert":12}],27:[function(require,module,exports){
 var assert = require('assert')
 var wayfarer = require('wayfarer')
 
@@ -2858,7 +2874,7 @@ function pathname (routename, isElectron) {
   return decodeURI(routename.replace(suffix, '').replace(normalize, '/'))
 }
 
-},{"assert":11,"wayfarer":31}],26:[function(require,module,exports){
+},{"assert":12,"wayfarer":33}],28:[function(require,module,exports){
 var assert = require('assert')
 
 var hasWindow = typeof window !== 'undefined'
@@ -2915,7 +2931,7 @@ NanoScheduler.prototype.setTimeout = function (cb) {
 
 module.exports = createScheduler
 
-},{"assert":11}],27:[function(require,module,exports){
+},{"assert":12}],29:[function(require,module,exports){
 var scheduler = require('nanoscheduler')()
 var assert = require('assert')
 
@@ -2965,7 +2981,7 @@ function noop (cb) {
   }
 }
 
-},{"assert":11,"nanoscheduler":26}],28:[function(require,module,exports){
+},{"assert":12,"nanoscheduler":28}],30:[function(require,module,exports){
 // shim for using process in browser
 var process = module.exports = {};
 
@@ -3151,7 +3167,7 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}],29:[function(require,module,exports){
+},{}],31:[function(require,module,exports){
 'use strict'
 
 /**
@@ -3181,7 +3197,7 @@ module.exports = function removeItems(arr, startIdx, removeCount)
   arr.length = len
 }
 
-},{}],30:[function(require,module,exports){
+},{}],32:[function(require,module,exports){
 module.exports = scrollToAnchor
 
 function scrollToAnchor (anchor, options) {
@@ -3193,7 +3209,7 @@ function scrollToAnchor (anchor, options) {
   }
 }
 
-},{}],31:[function(require,module,exports){
+},{}],33:[function(require,module,exports){
 var assert = require('assert')
 var trie = require('./trie')
 
@@ -3272,7 +3288,7 @@ function Wayfarer (dft) {
   }
 }
 
-},{"./trie":32,"assert":1}],32:[function(require,module,exports){
+},{"./trie":34,"assert":1}],34:[function(require,module,exports){
 var mutate = require('xtend/mutable')
 var assert = require('assert')
 var xtend = require('xtend')
@@ -3410,7 +3426,7 @@ Trie.prototype.mount = function (route, trie) {
   }
 }
 
-},{"assert":1,"xtend":33,"xtend/mutable":34}],33:[function(require,module,exports){
+},{"assert":1,"xtend":35,"xtend/mutable":36}],35:[function(require,module,exports){
 module.exports = extend
 
 var hasOwnProperty = Object.prototype.hasOwnProperty;
@@ -3431,7 +3447,7 @@ function extend() {
     return target
 }
 
-},{}],34:[function(require,module,exports){
+},{}],36:[function(require,module,exports){
 module.exports = extend
 
 var hasOwnProperty = Object.prototype.hasOwnProperty;
@@ -3450,49 +3466,74 @@ function extend(target) {
     return target
 }
 
-},{}],35:[function(require,module,exports){
-let html = require('choo/html'),
-    choo = require('choo'),
-    app = choo();
-
-let content = {
+},{}],37:[function(require,module,exports){
+module.exports = {
     international: {
-        title: 'LIGHT UP THE DARK',
-        description: 'Bring hope and justice to people who suffer human rights violations.\n Experience how you can light up the dark in the lives of those that suffer great\n injustices by having your signature light up the flame in the projection.',
-        toggleDescription: 'I want to sign 10 urgent cases of individuals who suffer human rights violations',
-        callToAction: 'SIGN THE CASES',
-        disclaimer: 'No other personal information but your name will accompany the letter to the appropriate government.',
-        successTitle: 'Thank you :name for keeping the flame alive.',
-        successDescription: 'Your name will appear in the projection in just a moment.',
-        successShareTitle: 'Wait, wait, wait, you’re not done yet...',
-        successShareDescription: 'Help us collect more signatures by sharing a photo using ',
-        startOver: 'START OVER'
+        title: `LIGHT UP THE DARK`,
+        description: `Bring hope and justice to people who suffer human rights violations.<br> Light up the dark by having your signature light up the flame in the projection.`,
+        start: `Start`,
+        next: `Next`,
+        back: `Back`,
+        step: `Step`,
+        countryQuestion: `What's your country?`,
+        iceland: `Iceland`,
+        international: `International`,
+        countryError: `Please select your country`,
+        nameQuestion: `What's your name?`,
+        namePlaceholder: `Tap here to start typing`,
+        nameError: `Please type your name`,
+        termsQuestion: `Sign for the cases`,
+        termsLabel: `I want to sign 10 urgent cases of individuals who suffer human rights violations`,
+        termsButton: `Sign the cases`,
+        termsDisclaimer: `No other personal information but your name will accompany<br> the letter to the appropriate government.`,
+        termsError: `Please sign the cases`,
+        thanksMessage: `Thank you :name: for<br> Keeping the flame alive.`,
+        projectionMessage: `Your name will appear in the projection in just a moment.`,
+        shareTitle: `Wait, wait, wait, you’re not done yet...`,
+        shareCallForAction: `Help us collect more signatures by sharing a photo using #eglysiuppmyrkrid`,
+        startAgainButton: `Start again`
     },
     iceland: {
-        title: 'LÝSTU UPP MYRKRIÐ',
-        description: 'Krefstu réttlætis fyrir þolendur mannréttindabrota og færðu þeim von með undirskrift þinni. Upplifðu hvernig þú lýsir upp myrkrið í lífi þeirra sem beittir eru órétti með nafn þitt að vopni.',
-        toggleDescription: 'Ég vil skrifa undir 10 aðkallandi mál einstaklinga sem sæta mannréttindabrotum.',
-        callToAction: 'SIGN THE CASES',
-        disclaimer: 'Engar aðrar persónuupplýsingar en nafn þitt munu fylgja bréfinu á viðkomandi stjórnvöld.',
-        successTitle: 'Takk fyrir að halda\n loganum lifandi',
-        successDescription: 'Nafn þitt mun varpast á kirkjuvegginn eftir augnablik.',
-        successShareTitle: 'Bíddu aðeins, þetta er ekki alveg búið',
-        successShareDescription: 'Hjálpaðu okkur að safna fleiri undirskriftum með því að deila mynd af þér með myllumerkinu ',
-        startOver: 'START OVER'
+        title: `XXX LIGHT UP THE DARK`,
+        description: `XXX Bring hope and justice to people who suffer human rights violations.<br> Light up the dark by having your signature light up the flame in the projection.`,
+        start: `XXX Start`,
+        next: `XXX Next`,
+        back: `XXX Back`,
+        step: `XXX Step`,
+        countryQuestion: `XXX What's your country?`,
+        iceland: `XXX Iceland`,
+        international: `XXX International`,
+        countryError: `XXX Please select your country`,
+        nameQuestion: `XXX What's your name?`,
+        namePlaceholder: `XXX Tap here to start typing`,
+        nameError: `XXX Please type your name`,
+        termsQuestion: `XXX Sign for the cases`,
+        termsLabel: `XXX I want to sign 10 urgent cases of individuals who suffer human rights violations`,
+        termsButton: `XXX Sign the cases`,
+        termsDisclaimer: `XXX No other personal information but your name will accompany<br> the letter to the appropriate government.`,
+        termsError: `XXX Please sign the cases`,
+        thanksMessage: `XXX Thank you :name: for<br> Keeping the flame alive.`,
+        projectionMessage: `XXX Your name will appear in the projection in just a moment.`,
+        shareTitle: `XXX Wait, wait, wait, you’re not done yet...`,
+        shareCallForAction: `XXX Help us collect more signatures by sharing a photo using #eglysiuppmyrkrid`,
+        startAgainButton: `XXX Start again`
     }
 }
 
-let back = () => {
-    history.go(-1);
-}
-
-let localizeContent = (state, section) => {
-    let country = state.data.country || 'international';
-    return content[country][section];
-}
+},{}],38:[function(require,module,exports){
+let html = require('choo/html');
+let choo = require('choo');
+let app = choo();
+let startView = require('./views/start.js');
+let countryView = require('./views/country.js');
+let nameView = require('./views/name.js');
+let termsView = require('./views/terms.js');
+let finishedView = require('./views/finished.js');
+let content = require('./content.js');
 
 let initialState = {
     data: {
+        headerTitle: false,
         step: 0,
         name: '',
         country: '',
@@ -3506,11 +3547,17 @@ let initialState = {
 };
 
 let appState = (state, emitter) => {
+    emitter.emit('pushState', '/');
     state.data = initialState.data;
     state.validationError = initialState.validationError;
+    state.content = content[state.data.country || 'international'];
 
+    emitter.on('back', () => {
+        history.go(-1);
+    });
     emitter.on('setCountry', (country) => {
         state.data.country = country;
+        state.content = content[state.data.country || 'international'];
     });
     emitter.on('setName', (name) => {
         state.data.name = name;
@@ -3518,13 +3565,18 @@ let appState = (state, emitter) => {
     emitter.on('setTerms', (terms) => {
         state.data.terms = terms;
     });
+    emitter.on('setProgress', (progress) => {
+        state.data.step = progress;
+    });
+    emitter.on('showTitle', (showTitle) => {
+        state.data.showTitle = showTitle;
+    });
     emitter.on('validateCountry', () => {
         if (state.data.country === '') {
             state.validationError.country = true;
         } else {
             state.validationError.country = false;
         }
-        emitter.emit('render');
     });
     emitter.on('validateName', () => {
         if (state.data.name === '') {
@@ -3532,7 +3584,6 @@ let appState = (state, emitter) => {
         } else {
             state.validationError.name = false;
         }
-        emitter.emit('render');
     });
     emitter.on('validateTerms', () => {
         if (state.data.terms === false) {
@@ -3540,129 +3591,23 @@ let appState = (state, emitter) => {
         } else {
             state.validationError.terms = false;
         }
-        emitter.emit('render');
     });
     emitter.on('reset', () => {
-        state.data = initialState.data;
-        state.validationError = initialState.validationError;
-    })
-}
-
-let startView = (state, emit) => {
-    let next = () => {
-        emit('pushState', '/country');
-    }
-    return html`
-        <body>
-            <div>
-                Light in the dark
-            </div>
-            <div onclick=${next}>
-                Start
-            </div>
-        </body>
-    `
-}
-
-let countryView = (state, emit) => {
-    let next = () => {
-        emit('validateCountry');
-        if (state.validationError.country === false) {
-            emit('pushState', '/name');
-        }
-    }
-    let setCountry = (e) => {
-        emit('setCountry', e.target.getAttribute('id'));
-        emit('validateCountry');
-    }
-    let errorStyle = () => {
-        if (state.validationError.country) {
-            return 'background: red';
-        } else {
-            return 'background: none';
-        }
-    }
-    return html`
-        <body>
-            <div style="${errorStyle()}">
-                Country
-            </div>
-            <div onclick=${setCountry} id="international" style="${state.data.country==='international'?'background:yellow':'background:none'}">
-                International
-            </div>
-            <div onclick=${setCountry} id="icelandic" style="${state.data.country==='icelandic'?'background:yellow':'background:none'}">
-                Icelandic
-            </div>
-            <div>
-                error: ${state.validationError.country}
-            </div>
-            <div onclick=${back}>
-                Back
-            </div>
-            <div onclick=${next}>
-                Next
-            </div>
-        </body>
-    `
-}
-
-let nameView = (state, emit) => {
-    let next = () => {
-        emit('pushState', '/terms');
-    }
-    return html`
-        <body>
-            <div>
-                Name
-            </div>
-            <div onclick=${back}>
-                Back
-            </div>
-            <div onclick=${next}>
-                Next
-            </div>
-        </body>
-    `
-}
-
-let termsView = (state, emit) => {
-    let next = () => {
-        emit('pushState', '/finished');
-    }
-    return html`
-        <body>
-            <div>
-                Terms
-            </div>
-            <div onclick=${back}>
-                Back
-            </div>
-            <div onclick=${next}>
-                Next
-            </div>
-        </body>
-    `
-}
-
-let finishedView = (state, emit) => {
-    let reset = () => {
-        emit('reset')
-        emit('pushState', '/');
-    }
-    return html`
-        <body>
-            <div>
-                Finished
-            </div>
-            <div onclick=${back}>
-                Back
-            </div>
-            <div onclick=${reset}>
-                Reset
-            </div>
-        </body>
-    `
-}
+        state.data = {
+            headerTitle: false,
+            step: 0,
+            name: '',
+            country: '',
+            terms: false
+        };
+        state.validationError = {
+            name: false,
+            country: false,
+            terms: false
+        };
+        state.content = content[state.data.country || 'international'];
+    });
+};
 
 app.use(appState);
 app.route('/', startView);
@@ -3672,4 +3617,369 @@ app.route('/terms', termsView);
 app.route('/finished', finishedView);
 app.mount('body');
 
-},{"choo":7,"choo/html":6}]},{},[35]);
+},{"./content.js":37,"./views/country.js":39,"./views/finished.js":40,"./views/name.js":42,"./views/start.js":44,"./views/terms.js":45,"choo":8,"choo/html":6}],39:[function(require,module,exports){
+let html = require('choo/html');
+let header = require('./header.js');
+let progress = require('./progress.js');
+
+module.exports = (state, emit) => {
+    emit('showTitle', true);
+    emit('setProgress', 1);
+
+    let next = () => {
+        emit('validateCountry');
+        if (state.validationError.country === false) {
+            emit('pushState', '/name');
+        } else {
+            emit('render');
+        }
+    }
+    let back = () => {
+        emit('back');
+    }
+    let setCountry = (e) => {
+        emit('setCountry', e.target.getAttribute('id'));
+        emit('validateCountry');
+        emit('render');
+    }
+    let selected = (country) => {
+        if (state.data.country === country) {
+            return 'selected';
+        }
+    }
+    let error = (country) => {
+        if (state.validationError.country === true) {
+            return 'error';
+        }
+    }
+    return html`
+<body class="dark-bg">
+    <!-- HEADER -->
+    ${header(state, emit)}
+    <div class="mb-80"></div>
+    <!-- FORM -->
+    <div class="content">
+        <!-- BACK -->
+        <div class="mb-60 back" onclick=${back}>
+            <img class="back-arrow" src="/assets/back.svg" alt="arrow" /> ${state.content.back}
+        </div>
+        <!-- QUESTION -->
+        <div class="question text-question mb-20">
+            <div class="col-left">
+                ${state.data.step} <img class="arrow" src="/assets/back.svg" alt="arrow" />
+            </div>
+            <div class="col-right">
+                ${state.content.countryQuestion}
+            </div>
+        </div>
+        <!-- ANSWER -->
+        <div class="answer text-question mb-40 ${error()}">
+            <div class="col-left"></div>
+            <div class="col-right">
+                <div id="iceland" class="input input-button ${selected('iceland')}" onclick=${setCountry}>
+                    <div class="label">A</div>
+                    ${state.content.iceland}
+                    <div class="check"><img src="/assets/right.svg" alt="check"/></div>
+                </div>
+                <div id="international" class="input input-button ${selected('international')}" onclick=${setCountry}>
+                    <div class="label">B</div>
+                    ${state.content.international}
+                    <div class="check"><img src="/assets/right.svg" alt="check"/></div>
+                </div>
+            </div>
+            <div class="col-left"></div>
+            <div class="col-right">
+                <div class="error-msg">${state.content.countryError}</div>
+            </div>
+        </div>
+        <!-- NEXT -->
+        <div class="next mb-60">
+            <div class="btn btn-next" onclick=${next}>${state.content.next}</div>
+        </div>
+    </div>
+    <!-- PROGRESS -->
+    ${progress(state, emit)}
+</body>
+    `;
+}
+
+},{"./header.js":41,"./progress.js":43,"choo/html":6}],40:[function(require,module,exports){
+let html = require('choo/html');
+let raw = require('choo/html/raw');
+let header = require('./header.js');
+
+module.exports = (state, emit) => {
+    emit('showTitle', false);
+    emit('setProgress', 4);
+
+    let reset = () => {
+        emit('reset')
+        emit('pushState', '/');
+    }
+    return html`
+<body class="light-bg">
+    ${header(state, emit)}
+    <div class="content">
+        <div class="text-huge text-center mb-20">
+            ${raw(state.content.thanksMessage.replace(':name:', state.data.name.split(' ')[0]))}
+        </div>
+        <div class="text-big text-center mb-40">
+            ${state.content.projectionMessage}
+        </div>
+        <div class="grey-box text-center text-big mb-40">
+            <strong>${state.content.shareTitle}</strong><br>
+            ${state.content.shareCallForAction}
+        </div>
+        <div class="btn btn-big center" onclick=${reset}>
+            ${state.content.startAgainButton}
+        </div>
+        <br><br><br><br>
+    </div>
+</body>
+    `;
+}
+
+},{"./header.js":41,"choo/html":6,"choo/html/raw":7}],41:[function(require,module,exports){
+let html = require('choo/html');
+module.exports = (state, emit) => {
+    return html`
+        <div class="header">
+            <div class="amnesty-logo">
+                <img src="/assets/logo.svg" alt="amnesty-logo"/>
+            </div>
+            <div class="title">
+                ${state.data.showTitle?state.content.title:''}
+            </div>
+            <div class="bref-logo">
+                <img src="/assets/bref.svg" alt="bref-logo"/>
+            </div>
+        </div>
+    `;
+}
+
+},{"choo/html":6}],42:[function(require,module,exports){
+let html = require('choo/html');
+let header = require('./header.js');
+let progress = require('./progress.js');
+
+module.exports = (state, emit) => {
+    emit('showTitle', true);
+    emit('setProgress', 2);
+
+    let next = () => {
+        emit('validateName');
+        if (state.validationError.name === false) {
+            emit('pushState', '/terms');
+        } else {
+            emit('render');
+        }
+    }
+    let back = () => {
+        emit('back');
+    }
+    let onChange = (e) => {
+        emit('setName', e.target.value);
+        emit('validateName');
+        emit('render');
+    }
+    let error = () => {
+        if (state.validationError.name === true) {
+            return 'error';
+        }
+    }
+    let ready = () => {
+        if (state.data.name !== '' && state.validationError.name === false) {
+            return 'selected';
+        }
+    }
+    return html`
+<body class="dark-bg">
+    <!-- HEADER -->
+    ${header(state, emit)}
+    <div class="mb-80"></div>
+    <!-- FORM -->
+    <div class="content">
+        <!-- BACK -->
+        <div class="mb-60 back" onclick=${back}>
+            <img class="back-arrow" src="/assets/back.svg" alt="arrow" /> ${state.content.back}
+        </div>
+        <!-- QUESTION -->
+        <div class="question text-question mb-20">
+            <div class="col-left">
+                ${state.data.step} <img class="arrow" src="/assets/back.svg" alt="arrow" />
+            </div>
+            <div class="col-right">
+                ${state.content.nameQuestion}
+            </div>
+        </div>
+        <!-- ANSWER -->
+        <div class="answer text-question mb-40 ${error()}">
+            <div class="col-left"></div>
+            <div class="col-right">
+                <div class="input input-text ${ready()}">
+                    <input class="text-question" type="text"
+                        value="${state.data.name}"
+                        placeholder="${state.content.namePlaceholder}"
+                        oninput=${onChange}/>
+                    <div class="check"><img src="/assets/right.svg" alt="check"/></div>
+                </div>
+            </div>
+            <div class="col-left"></div>
+            <div class="col-right">
+                <div class="error-msg">${state.content.nameError}</div>
+            </div>
+        </div>
+        <!-- NEXT -->
+        <div class="next mb-60">
+            <div class="btn btn-next" onclick=${next}>${state.content.next}</div>
+        </div>
+    </div>
+    <!-- PROGRESS -->
+    ${progress(state, emit)}
+</body>
+    `;
+}
+
+},{"./header.js":41,"./progress.js":43,"choo/html":6}],43:[function(require,module,exports){
+let html = require('choo/html');
+module.exports = (state, emit) => {
+    return html`
+        <div class="progress">
+            <div class="mb-20">${state.content.step} ${state.data.step}/3</div>
+            <div class="steps center">
+                <div class="step ${state.data.step>0?'active':''}"></div>
+                <div class="step ${state.data.step>1?'active':''}"></div>
+                <div class="step ${state.data.step>2?'active':''}"></div>
+            </div>
+        </div>
+    `;
+}
+
+},{"choo/html":6}],44:[function(require,module,exports){
+let html = require('choo/html');
+let raw = require('choo/html/raw');
+let header = require('./header.js');
+
+module.exports = (state, emit) => {
+    emit('showTitle', false);
+    let next = () => {
+        emit('pushState', '/country');
+    }
+    return html`
+        <body class="dark-bg">
+            ${header(state, emit)}
+            <div class="mb-80"></div>
+            <div class="content text-center">
+                <div class="text-huge mb-20">
+                    ${state.content.title}
+                </div>
+                <div class="mb-80 text-dark-grey">
+                    ${raw(state.content.description)}
+                </div>
+                <div class="btn btn-big center" onclick=${next}>
+                    ${state.content.start}
+                </div>
+            </div>
+        </body>
+    `;
+}
+
+},{"./header.js":41,"choo/html":6,"choo/html/raw":7}],45:[function(require,module,exports){
+let html = require('choo/html');
+let header = require('./header.js');
+let progress = require('./progress.js');
+
+module.exports = (state, emit) => {
+    emit('showTitle', true);
+    emit('setProgress', 3);
+
+    let next = () => {
+        emit('validateTerms');
+        if (state.validationError.terms === false) {
+            fetch('/message', {
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                method: 'post',
+                body: JSON.stringify(state.data)
+            }).then((r) => r.json())
+            .then((res) => {
+                emit('pushState', '/finished');
+            })
+            .catch((err) => {
+                console.log('error', err);
+            });
+        } else {
+            emit('render');
+        }
+    }
+    let back = () => {
+        emit('back');
+    }
+    let onChange = (e) => {
+        emit('setTerms', e.target.checked);
+        emit('validateTerms');
+        emit('render');
+    }
+    let error = () => {
+        if (state.validationError.terms === true) {
+            return 'error';
+        }
+    }
+    let ready = () => {
+        if (state.data.terms === true) {
+            return 'selected';
+        } else {
+            return ''
+        }
+    }
+    return html`
+<body class="dark-bg">
+    ${header(state, emit)}
+    <div class="mb-80"></div>
+    <!-- FORM -->
+    <div class="content">
+        <!-- BACK -->
+        <div class="mb-60 back" onclick=${back}>
+            <img class="back-arrow" src="/assets/back.svg" alt="arrow" /> ${state.content.back}
+        </div>
+        <!-- QUESTION -->
+        <div class="question text-question mb-20">
+            <div class="col-left">
+                ${state.data.step} <img class="arrow" src="/assets/back.svg" alt="arrow" />
+            </div>
+            <div class="col-right">
+                ${state.content.termsQuestion}
+            </div>
+        </div>
+        <!-- ANSWER -->
+        <div class="answer text-question mb-40 ${error()}">
+            <div class="col-left"></div>
+            <div class="col-right">
+                <label class="input-label text-small">
+                    <input type="checkbox"
+                        ${state.data.terms?'checked':''}
+                        class="input input-checkbox mr-20 ${ready()}"
+                        onchange=${onChange}/>
+                    <span>${state.content.termsLabel}</span>
+                </label>
+            </div>
+            <div class="col-left"></div>
+            <div class="col-right">
+                <div class="error-msg">${state.content.termsError}</div>
+            </div>
+        </div>
+        <!-- SIGN THE CASES -->
+        <div class="mb-60">
+            <div class="btn btn-big center" onclick=${next}>
+                ${state.content.termsButton}
+            </div>
+        </div>
+    </div>
+    <!-- PROGRESS -->
+    ${progress(state, emit)}
+</body>
+    `;
+}
+
+},{"./header.js":41,"./progress.js":43,"choo/html":6}]},{},[38]);
