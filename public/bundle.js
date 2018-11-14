@@ -3494,29 +3494,29 @@ module.exports = {
         startAgainButton: `Start again`
     },
     iceland: {
-        title: `XXX LIGHT UP THE DARK`,
-        description: `XXX Bring hope and justice to people who suffer human rights violations.<br> Light up the dark by having your signature light up the flame in the projection.`,
-        start: `XXX Start`,
-        next: `XXX Next`,
-        back: `XXX Back`,
-        step: `XXX Step`,
-        countryQuestion: `XXX What's your country?`,
-        iceland: `XXX Iceland`,
-        international: `XXX International`,
-        countryError: `XXX Please select your country`,
-        nameQuestion: `XXX What's your name?`,
-        namePlaceholder: `XXX Tap here to start typing`,
-        nameError: `XXX Please type your name`,
-        termsQuestion: `XXX Sign for the cases`,
-        termsLabel: `XXX I want to sign 10 urgent cases of individuals who suffer human rights violations`,
-        termsButton: `XXX Sign the cases`,
-        termsDisclaimer: `XXX No other personal information but your name will accompany<br> the letter to the appropriate government.`,
-        termsError: `XXX Please sign the cases`,
-        thanksMessage: `XXX Thank you :name: for<br> Keeping the flame alive.`,
-        projectionMessage: `XXX Your name will appear in the projection in just a moment.`,
-        shareTitle: `XXX Wait, wait, wait, you’re not done yet...`,
-        shareCallForAction: `XXX Help us collect more signatures by sharing a photo using #eglysiuppmyrkrid`,
-        startAgainButton: `XXX Start again`
+        title: `LÝSTU UPP MYRKRIÐ`,
+        description: `Skrifaðu undir og tendraðu ljós í lífi þeirra er sæta mannréttindabrotum.`,
+        start: `Byrja`,
+        next: `Næst`,
+        back: `Til baka`,
+        step: `Skref`,
+        countryQuestion: `HVERT ER ÞJÓÐERNI ÞITT?`,
+        iceland: `ÍSLENSK/UR`,
+        international: `ERLEND/UR`,
+        countryError: `Veldu landið þitt?`,
+        nameQuestion: `Hvert er nafn þitt?`,
+        namePlaceholder: `Smelltu hér til þess að skrifa`,
+        nameError: `Skrifaðu fullt nafn`,
+        termsQuestion: `SKRIFA UNDIR MÁLIN`,
+        termsLabel: `Ég vil skrifa undir 10 aðkallandi mál einstaklinga sem sæta mannréttindabrotum.`,
+        termsButton: `SKRIFA UNDIR`,
+        termsDisclaimer: `Engar aðrar persónuupplýsingar en nafn þitt <br> Munu fylgja bréfinu á viðkomandi stjórnvöld.`,
+        termsError: `Merkið í reitinn`,
+        thanksMessage: `Takk fyrir :name: for<br> að halda Loganum lifandi`,
+        projectionMessage: `Nafn þitt mun varpast á kirkjuvegginn eftir augnablik.`,
+        shareTitle: `Bíddu aðeins, þetta er ekki alveg búið`,
+        shareCallForAction: `Hjálpaðu okkur að safna fleiri undirskriftum með því að deila mynd af þér með myllumerkinu #eglysiuppmyrkrid`,
+        startAgainButton: `Byrja aftur`
     }
 }
 
@@ -3898,6 +3898,7 @@ module.exports = (state, emit) => {
 
 },{"./header.js":41,"choo/html":6,"choo/html/raw":7}],45:[function(require,module,exports){
 let html = require('choo/html');
+let raw = require('choo/html/raw');
 let header = require('./header.js');
 let progress = require('./progress.js');
 
@@ -3965,7 +3966,7 @@ module.exports = (state, emit) => {
             </div>
         </div>
         <!-- ANSWER -->
-        <div class="answer text-question mb-40 ${error()}">
+        <div class="answer text-question ${error()}">
             <div class="col-left"></div>
             <div class="col-right">
                 <label class="input-label text-small">
@@ -3982,10 +3983,13 @@ module.exports = (state, emit) => {
             </div>
         </div>
         <!-- SIGN THE CASES -->
-        <div class="mb-60">
-            <div class="btn btn-big center" onclick=${next}>
+        <div class="mb-20">
+            <div class="btn btn-big center mb-20" onclick=${next}>
                 ${state.content.termsButton}
             </div>
+        </div>
+        <div class="text-center mb-40 text-small">
+            ${raw(state.content.termsDisclaimer)}
         </div>
     </div>
     <!-- PROGRESS -->
@@ -3994,4 +3998,4 @@ module.exports = (state, emit) => {
     `;
 }
 
-},{"./header.js":41,"./progress.js":43,"choo/html":6}]},{},[38]);
+},{"./header.js":41,"./progress.js":43,"choo/html":6,"choo/html/raw":7}]},{},[38]);

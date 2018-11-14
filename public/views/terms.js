@@ -1,4 +1,5 @@
 let html = require('choo/html');
+let raw = require('choo/html/raw');
 let header = require('./header.js');
 let progress = require('./progress.js');
 
@@ -66,7 +67,7 @@ module.exports = (state, emit) => {
             </div>
         </div>
         <!-- ANSWER -->
-        <div class="answer text-question mb-40 ${error()}">
+        <div class="answer text-question ${error()}">
             <div class="col-left"></div>
             <div class="col-right">
                 <label class="input-label text-small">
@@ -83,10 +84,13 @@ module.exports = (state, emit) => {
             </div>
         </div>
         <!-- SIGN THE CASES -->
-        <div class="mb-60">
-            <div class="btn btn-big center" onclick=${next}>
+        <div class="mb-20">
+            <div class="btn btn-big center mb-20" onclick=${next}>
                 ${state.content.termsButton}
             </div>
+        </div>
+        <div class="text-center mb-40 text-small">
+            ${raw(state.content.termsDisclaimer)}
         </div>
     </div>
     <!-- PROGRESS -->
